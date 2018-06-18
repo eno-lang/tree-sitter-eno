@@ -5,52 +5,56 @@
       "type": "CHOICE",
       "members": [
         {
-          "type": "SYMBOL",
-          "name": "section"
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_instruction"
+            },
+            {
+              "type": "REPEAT",
+              "content": {
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "STRING",
+                    "value": "\n"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "_instruction"
+                  }
+                ]
+              }
+            }
+          ]
         },
         {
           "type": "BLANK"
         }
       ]
     },
-    "section": {
-      "type": "PREC_RIGHT",
-      "value": 0,
-      "content": {
-        "type": "SEQ",
-        "members": [
-          {
-            "type": "SYMBOL",
-            "name": "_instruction"
-          },
-          {
-            "type": "REPEAT",
-            "content": {
-              "type": "SEQ",
-              "members": [
-                {
-                  "type": "STRING",
-                  "value": "\n"
-                },
-                {
-                  "type": "SYMBOL",
-                  "name": "_instruction"
-                }
-              ]
-            }
-          }
-        ]
-      }
-    },
     "_instruction": {
       "type": "CHOICE",
       "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_comment"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_emptyElement"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_field"
+        },
         {
           "type": "SEQ",
           "members": [
             {
               "type": "SYMBOL",
-              "name": "commentOperator"
+              "name": "appendWithNewlineOperator"
             },
             {
               "type": "ALIAS",
@@ -59,7 +63,7 @@
                 "name": "token"
               },
               "named": false,
-              "value": "comment"
+              "value": "value"
             }
           ]
         },
@@ -68,24 +72,7 @@
           "members": [
             {
               "type": "SYMBOL",
-              "name": "name"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "nameOperator"
-            }
-          ]
-        },
-        {
-          "type": "SEQ",
-          "members": [
-            {
-              "type": "SYMBOL",
-              "name": "name"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "nameOperator"
+              "name": "appendWithSpaceOperator"
             },
             {
               "type": "ALIAS",
@@ -110,8 +97,159 @@
               "name": "name"
             }
           ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "dictionary"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "list"
+        },
+        {
+          "type": "STRING",
+          "value": "\n"
         }
       ]
+    },
+    "_comment": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "commentOperator"
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "SYMBOL",
+            "name": "token"
+          },
+          "named": false,
+          "value": "comment"
+        }
+      ]
+    },
+    "_emptyElement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "name"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "nameOperator"
+        }
+      ]
+    },
+    "_field": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "name"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "nameOperator"
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "SYMBOL",
+            "name": "token"
+          },
+          "named": false,
+          "value": "value"
+        }
+      ]
+    },
+    "dictionary": {
+      "type": "PREC",
+      "value": 2,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "SYMBOL",
+            "name": "name"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "nameOperator"
+          },
+          {
+            "type": "STRING",
+            "value": "\n"
+          },
+          {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "name"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "entryOperator"
+              },
+              {
+                "type": "ALIAS",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "token"
+                },
+                "named": false,
+                "value": "value"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "list": {
+      "type": "PREC",
+      "value": 2,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "SYMBOL",
+            "name": "name"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "nameOperator"
+          },
+          {
+            "type": "STRING",
+            "value": "\n"
+          },
+          {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "name"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "itemOperator"
+              },
+              {
+                "type": "ALIAS",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "token"
+                },
+                "named": false,
+                "value": "value"
+              }
+            ]
+          }
+        ]
+      }
     },
     "name": {
       "type": "PATTERN",
@@ -121,6 +259,34 @@
       "type": "PATTERN",
       "value": "\\S|\\S[^\\n]*\\S"
     },
+    "appendWithNewlineOperator": {
+      "type": "STRING",
+      "value": "|"
+    },
+    "appendWithSpaceOperator": {
+      "type": "STRING",
+      "value": "\\"
+    },
+    "commentOperator": {
+      "type": "STRING",
+      "value": ">"
+    },
+    "copyOperator": {
+      "type": "STRING",
+      "value": "<"
+    },
+    "deepCopyOperator": {
+      "type": "STRING",
+      "value": "<<"
+    },
+    "entryOperator": {
+      "type": "STRING",
+      "value": "="
+    },
+    "itemOperator": {
+      "type": "STRING",
+      "value": "-"
+    },
     "nameOperator": {
       "type": "STRING",
       "value": ":"
@@ -128,16 +294,12 @@
     "sectionOperator": {
       "type": "PATTERN",
       "value": "#+"
-    },
-    "commentOperator": {
-      "type": "STRING",
-      "value": ">"
     }
   },
   "extras": [
     {
       "type": "PATTERN",
-      "value": "\\s"
+      "value": "[^\\S\\n]"
     }
   ],
   "conflicts": [],

@@ -5,9 +5,8 @@ Empty Section
 ---
 
 (document
-  (section
-    (sectionOperator)
-    (name)))
+  (sectionOperator)
+  (name))
 
 ===================================
 Section
@@ -17,8 +16,7 @@ name:
 ---
 
 (document
-  (section
-    (sectionOperator)
+  (sectionOperator)
+  (name)
     (name)
-    (name)
-    (nameOperator)))
+    (nameOperator))

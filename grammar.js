@@ -2,72 +2,76 @@ module.exports = grammar({
   name: 'eno',
 
   extras: $ => [
-    /\s/
+    /[^\S\n]/
   ],
 
   rules: {
-    document: $ => optional($.section),
-
-    section: $ => prec.right(seq(
-      $._instruction,
-      repeat(
-        seq(
-          '\n',
-          $._instruction
+    document: $ => optional(
+      seq(
+        $._instruction,
+        repeat(
+          seq(
+            '\n',
+            $._instruction
+          )
         )
       )
-    )),
+    ),
 
     _instruction: $ => choice(
-      seq($.commentOperator, alias($.token, 'comment')),
-      seq($.name, $.nameOperator),
-      seq($.name, $.nameOperator, alias($.token, 'value')),
+      $._comment,
+      $._emptyElement,
+      $._field,
+      seq($.appendWithNewlineOperator, alias($.token, 'value')),
+      seq($.appendWithSpaceOperator, alias($.token, 'value')),
       seq($.sectionOperator, $.name),
-      // seq($.sectionOperator, $.name, optional(seq('\n', $.section))),
+      $.dictionary,
+      $.list,
+      '\n',
+      // seq($.sectionOperator, $.name, optional(seq('\n', alias($.document, 'section')))),
     ),
+
+    _comment: $ => seq(
+      $.commentOperator,
+      alias($.token, 'comment')
+    ),
+
+    _emptyElement: $ => seq(
+      $.name,
+      $.nameOperator
+    ),
+
+    _field: $ => seq(
+      $.name,
+      $.nameOperator,
+      alias($.token, 'value')
+    ),
+
+    dictionary: $ => prec(2, seq(
+      $.name,
+      $.nameOperator,
+      '\n',
+      seq($.name, $.entryOperator, alias($.token, 'value'))
+    )),
+
+    list: $ => prec(2, seq(
+      $.name,
+      $.nameOperator,
+      '\n',
+      seq($.name, $.itemOperator, alias($.token, 'value'))
+    )),
 
     name: $ => /[^>:=<\-#|\\\s]|[^>:=<\-#|\\\s][^>:=<\-#|\\\n]*[^>:=<\-#|\\\s]/,
     token: $ => /\S|\S[^\n]*\S/,
 
+    appendWithNewlineOperator: $ => '|',
+    appendWithSpaceOperator: $ => '\\',
+    commentOperator: $ => '>',
+    copyOperator: $ => '<',
+    deepCopyOperator: $ => '<<',
+    entryOperator: $ => '=',
+    itemOperator: $ => '-',
     nameOperator: $ => ':',
-    sectionOperator: $ => /#+/,
-    commentOperator: $ => '>'
-    // instruction: $ => choice(
-    //   $.block,
-    //   $.field,
-    //   $.nameInstruction
-    // ),
-
-    // block: $ => seq(
-    //   'block'
-    // ),
-    //
-    // field: $ => seq(
-    //   'field',
-    //   $.blanks,
-    //   ':',
-    //   $.blanks,
-    //   'value'
-    // ),
-    //
-    // nameInstruction: $ => seq(
-    //   $.name,
-    //   $.blanks,
-    //   ':'
-    // ),
-    //
-    // name: $ => /\S\S{2}\S/,
-    // // name: $ => /\S|\S[^\n]*\S/,
-    //
-    // // name: $ => /[^<>`:=]+/,
-    // blanks: $ => /[^\S\n]*/,
-    // newline: $ => /\n/,
-
-    // block: $ => seq(
-    //   '-- hello',
-    //   'fun',
-    //   '-- hello'
-    // ),
-
+    sectionOperator: $ => /#+/
   }
 });

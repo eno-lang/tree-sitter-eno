@@ -1,13 +1,14 @@
 ===================================
-List
+Dictionary
 ===================================
 name:
-- value
+field = value
 ---
 
 (document
-  (list
+  (dictionary
     (name)
     (nameOperator)
-    (itemOperator)
-    (value))
+    (name)
+    (entryOperator)
+    (value)))
