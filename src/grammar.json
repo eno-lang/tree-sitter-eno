@@ -1,0 +1,146 @@
+{
+  "name": "eno",
+  "rules": {
+    "document": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "section"
+        },
+        {
+          "type": "BLANK"
+        }
+      ]
+    },
+    "section": {
+      "type": "PREC_RIGHT",
+      "value": 0,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "SYMBOL",
+            "name": "_instruction"
+          },
+          {
+            "type": "REPEAT",
+            "content": {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": "\n"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "_instruction"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "_instruction": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "commentOperator"
+            },
+            {
+              "type": "ALIAS",
+              "content": {
+                "type": "SYMBOL",
+                "name": "token"
+              },
+              "named": false,
+              "value": "comment"
+            }
+          ]
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "name"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "nameOperator"
+            }
+          ]
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "name"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "nameOperator"
+            },
+            {
+              "type": "ALIAS",
+              "content": {
+                "type": "SYMBOL",
+                "name": "token"
+              },
+              "named": false,
+              "value": "value"
+            }
+          ]
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "sectionOperator"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "name"
+            }
+          ]
+        }
+      ]
+    },
+    "name": {
+      "type": "PATTERN",
+      "value": "[^>:=<\\-#|\\\\\\s]|[^>:=<\\-#|\\\\\\s][^>:=<\\-#|\\\\\\n]*[^>:=<\\-#|\\\\\\s]"
+    },
+    "token": {
+      "type": "PATTERN",
+      "value": "\\S|\\S[^\\n]*\\S"
+    },
+    "nameOperator": {
+      "type": "STRING",
+      "value": ":"
+    },
+    "sectionOperator": {
+      "type": "PATTERN",
+      "value": "#+"
+    },
+    "commentOperator": {
+      "type": "STRING",
+      "value": ">"
+    }
+  },
+  "extras": [
+    {
+      "type": "PATTERN",
+      "value": "\\s"
+    }
+  ],
+  "conflicts": [],
+  "externals": [],
+  "inline": []
+}

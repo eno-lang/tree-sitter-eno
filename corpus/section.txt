@@ -1,0 +1,24 @@
+===================================
+Empty Section
+===================================
+# name
+---
+
+(document
+  (section
+    (sectionOperator)
+    (name)))
+
+===================================
+Section
+===================================
+# name
+name:
+---
+
+(document
+  (section
+    (sectionOperator)
+    (name)
+    (name)
+    (nameOperator)))

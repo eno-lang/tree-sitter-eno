@@ -1,0 +1,25 @@
+{
+  "author": "Simon Repp <simon@fdpl.io>",
+  "bugs": {
+    "url": "https://github.com/eno-lang/tree-sitter-eno/issues"
+  },
+  "devDependencies": {
+    "tree-sitter-cli": "^0.12.6"
+  },
+  "description": "Tree-sitter parser definition for eno",
+  "homepage": "https://github.com/eno-lang/tree-sitter-eno#readme",
+  "license": "MIT",
+  "main": "index.js",
+  "name": "tree-sitter-eno",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eno-lang/tree-sitter-eno.git"
+  },
+  "scripts": {
+    "clean": "rm -rf build/ src/ binding.gyp index.js",
+    "generate": "tree-sitter generate",
+    "parse": "tree-sitter parse sample.eno",
+    "test": "npm run clean && npm run generate && npm install && tree-sitter test"
+  },
+  "version": "0.0.0"
+}

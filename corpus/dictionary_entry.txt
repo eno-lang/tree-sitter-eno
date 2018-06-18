@@ -1,0 +1,10 @@
+===================================
+Dictionary Entry
+===================================
+field = value
+---
+
+(document
+  (name)
+  (entryOperator)
+  (value))
