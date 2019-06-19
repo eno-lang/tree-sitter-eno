@@ -4,7 +4,8 @@
     "url": "https://github.com/eno-lang/tree-sitter-eno/issues/"
   },
   "devDependencies": {
-    "tree-sitter-cli": "^0.12.6"
+    "nan": "^2.14.0",
+    "tree-sitter-cli": "^0.15.3"
   },
   "description": "Tree-sitter parser definition for eno",
   "homepage": "https://github.com/eno-lang/tree-sitter-eno/",

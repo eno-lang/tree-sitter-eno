@@ -1,0 +1,65 @@
+[
+  {
+    "type": "dictionary",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "document",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "list",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "\n",
+    "named": false
+  },
+  {
+    "type": "name",
+    "named": true
+  },
+  {
+    "type": "token",
+    "named": true
+  },
+  {
+    "type": "appendWithNewlineOperator",
+    "named": true
+  },
+  {
+    "type": "appendWithSpaceOperator",
+    "named": true
+  },
+  {
+    "type": "commentOperator",
+    "named": true
+  },
+  {
+    "type": "copyOperator",
+    "named": true
+  },
+  {
+    "type": "deepCopyOperator",
+    "named": true
+  },
+  {
+    "type": "entryOperator",
+    "named": true
+  },
+  {
+    "type": "itemOperator",
+    "named": true
+  },
+  {
+    "type": "nameOperator",
+    "named": true
+  },
+  {
+    "type": "sectionOperator",
+    "named": true
+  }
+]
