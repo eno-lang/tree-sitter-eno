@@ -1,22 +1,22 @@
 ===================================
 Empty Section
 ===================================
-# name
+# key
 ---
 
 (document
   (sectionOperator)
-  (name))
+  (key))
 
 ===================================
 Section
 ===================================
-# name
-name:
+# key
+key:
 ---
 
 (document
   (sectionOperator)
-  (name)
-    (name)
-    (nameOperator))
+  (key)
+    (key)
+    (elementOperator))

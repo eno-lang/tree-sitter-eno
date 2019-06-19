@@ -1,11 +1,11 @@
 [
   {
-    "type": "dictionary",
+    "type": "document",
     "named": true,
     "fields": {}
   },
   {
-    "type": "document",
+    "type": "fieldset",
     "named": true,
     "fields": {}
   },
@@ -19,7 +19,7 @@
     "named": false
   },
   {
-    "type": "name",
+    "type": "key",
     "named": true
   },
   {
@@ -27,11 +27,11 @@
     "named": true
   },
   {
-    "type": "appendWithNewlineOperator",
+    "type": "directContinuationOperator",
     "named": true
   },
   {
-    "type": "appendWithSpaceOperator",
+    "type": "spacedContinuationOperator",
     "named": true
   },
   {
@@ -55,7 +55,7 @@
     "named": true
   },
   {
-    "type": "nameOperator",
+    "type": "elementOperator",
     "named": true
   },
   {

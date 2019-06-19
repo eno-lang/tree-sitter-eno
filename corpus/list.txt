@@ -1,13 +1,13 @@
 ===================================
 List
 ===================================
-name:
-- value
+list:
+- item
 ---
 
 (document
   (list
-    (name)
-    (nameOperator)
+    (key)
+    (elementOperator)
     (itemOperator)
     (value))

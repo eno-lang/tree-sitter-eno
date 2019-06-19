@@ -1,5 +1,5 @@
 ===================================
-Name
+Tokens
 ===================================
 foo  asdf asdf: val !!!
 fooasfdasd:
@@ -8,10 +8,10 @@ fooasfdasd:
 ---
 
 (document
-  (name)
-  (nameOperator)
+  (key)
+  (elementOperator)
   (value)
-  (name)
-  (nameOperator)
-  (name)
-  (nameOperator))
+  (key)
+  (elementOperator)
+  (key)
+  (elementOperator))

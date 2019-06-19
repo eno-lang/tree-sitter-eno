@@ -16,21 +16,21 @@
 
 enum {
   anon_sym_LF = 1,
-  sym_name = 2,
+  sym_key = 2,
   sym_token = 3,
-  sym_appendWithNewlineOperator = 4,
-  sym_appendWithSpaceOperator = 5,
+  sym_directContinuationOperator = 4,
+  sym_spacedContinuationOperator = 5,
   sym_commentOperator = 6,
   sym_entryOperator = 7,
   sym_itemOperator = 8,
-  sym_nameOperator = 9,
+  sym_elementOperator = 9,
   sym_sectionOperator = 10,
   sym_document = 11,
   sym__instruction = 12,
   sym__comment = 13,
-  sym__emptyElement = 14,
+  sym__ambiguousElement = 14,
   sym__field = 15,
-  sym_dictionary = 16,
+  sym_fieldset = 16,
   sym_list = 17,
   aux_sym_document_repeat1 = 18,
   anon_alias_sym_comment = 19,
@@ -40,21 +40,21 @@ enum {
 static const char *ts_symbol_names[] = {
   [ts_builtin_sym_end] = "end",
   [anon_sym_LF] = "\n",
-  [sym_name] = "name",
+  [sym_key] = "key",
   [sym_token] = "token",
-  [sym_appendWithNewlineOperator] = "appendWithNewlineOperator",
-  [sym_appendWithSpaceOperator] = "appendWithSpaceOperator",
+  [sym_directContinuationOperator] = "directContinuationOperator",
+  [sym_spacedContinuationOperator] = "spacedContinuationOperator",
   [sym_commentOperator] = "commentOperator",
   [sym_entryOperator] = "entryOperator",
   [sym_itemOperator] = "itemOperator",
-  [sym_nameOperator] = "nameOperator",
+  [sym_elementOperator] = "elementOperator",
   [sym_sectionOperator] = "sectionOperator",
   [sym_document] = "document",
   [sym__instruction] = "_instruction",
   [sym__comment] = "_comment",
-  [sym__emptyElement] = "_emptyElement",
+  [sym__ambiguousElement] = "_ambiguousElement",
   [sym__field] = "_field",
-  [sym_dictionary] = "dictionary",
+  [sym_fieldset] = "fieldset",
   [sym_list] = "list",
   [aux_sym_document_repeat1] = "document_repeat1",
   [anon_alias_sym_comment] = "comment",
@@ -70,7 +70,7 @@ static const TSSymbolMetadata ts_symbol_metadata[] = {
     .visible = true,
     .named = false,
   },
-  [sym_name] = {
+  [sym_key] = {
     .visible = true,
     .named = true,
   },
@@ -78,11 +78,11 @@ static const TSSymbolMetadata ts_symbol_metadata[] = {
     .visible = true,
     .named = true,
   },
-  [sym_appendWithNewlineOperator] = {
+  [sym_directContinuationOperator] = {
     .visible = true,
     .named = true,
   },
-  [sym_appendWithSpaceOperator] = {
+  [sym_spacedContinuationOperator] = {
     .visible = true,
     .named = true,
   },
@@ -98,7 +98,7 @@ static const TSSymbolMetadata ts_symbol_metadata[] = {
     .visible = true,
     .named = true,
   },
-  [sym_nameOperator] = {
+  [sym_elementOperator] = {
     .visible = true,
     .named = true,
   },
@@ -118,7 +118,7 @@ static const TSSymbolMetadata ts_symbol_metadata[] = {
     .visible = false,
     .named = true,
   },
-  [sym__emptyElement] = {
+  [sym__ambiguousElement] = {
     .visible = false,
     .named = true,
   },
@@ -126,7 +126,7 @@ static const TSSymbolMetadata ts_symbol_metadata[] = {
     .visible = false,
     .named = true,
   },
-  [sym_dictionary] = {
+  [sym_fieldset] = {
     .visible = true,
     .named = true,
   },
@@ -242,7 +242,7 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
         ADVANCE(8);
       END_STATE();
     case 5:
-      ACCEPT_TOKEN(sym_appendWithSpaceOperator);
+      ACCEPT_TOKEN(sym_spacedContinuationOperator);
       if (lookahead == '#')
         ADVANCE(3);
       if (lookahead == '>')
@@ -264,7 +264,7 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
         ADVANCE(8);
       END_STATE();
     case 6:
-      ACCEPT_TOKEN(sym_appendWithNewlineOperator);
+      ACCEPT_TOKEN(sym_directContinuationOperator);
       if (lookahead == '#')
         ADVANCE(3);
       if (lookahead == '>')
@@ -309,7 +309,7 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
         ADVANCE(8);
       END_STATE();
     case 8:
-      ACCEPT_TOKEN(sym_name);
+      ACCEPT_TOKEN(sym_key);
       if (lookahead == '#')
         ADVANCE(3);
       if (lookahead == '>')
@@ -367,7 +367,7 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
         ADVANCE(11);
       END_STATE();
     case 12:
-      ACCEPT_TOKEN(sym_name);
+      ACCEPT_TOKEN(sym_key);
       if (lookahead == '\t' ||
           lookahead == '\r' ||
           lookahead == ' ')
@@ -450,7 +450,7 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
         ADVANCE(18);
       END_STATE();
     case 16:
-      ACCEPT_TOKEN(sym_appendWithSpaceOperator);
+      ACCEPT_TOKEN(sym_spacedContinuationOperator);
       if (lookahead == '#')
         ADVANCE(14);
       if (lookahead == '>')
@@ -471,7 +471,7 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
         ADVANCE(18);
       END_STATE();
     case 17:
-      ACCEPT_TOKEN(sym_appendWithNewlineOperator);
+      ACCEPT_TOKEN(sym_directContinuationOperator);
       if (lookahead == '#')
         ADVANCE(14);
       if (lookahead == '>')
@@ -492,7 +492,7 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
         ADVANCE(18);
       END_STATE();
     case 18:
-      ACCEPT_TOKEN(sym_name);
+      ACCEPT_TOKEN(sym_key);
       if (lookahead == '#')
         ADVANCE(14);
       if (lookahead == '>')
@@ -529,7 +529,7 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
         ADVANCE(20);
       END_STATE();
     case 20:
-      ACCEPT_TOKEN(sym_name);
+      ACCEPT_TOKEN(sym_key);
       if (lookahead == '\t' ||
           lookahead == '\r' ||
           lookahead == ' ')
@@ -566,7 +566,7 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
         SKIP(22);
       END_STATE();
     case 23:
-      ACCEPT_TOKEN(sym_nameOperator);
+      ACCEPT_TOKEN(sym_elementOperator);
       if (lookahead == ':')
         ADVANCE(23);
       END_STATE();
@@ -655,27 +655,27 @@ static TSLexMode ts_lex_modes[STATE_COUNT] = {
 
 static uint16_t ts_parse_table[STATE_COUNT][SYMBOL_COUNT] = {
   [0] = {
-    [sym_appendWithSpaceOperator] = ACTIONS(1),
+    [sym_spacedContinuationOperator] = ACTIONS(1),
     [ts_builtin_sym_end] = ACTIONS(1),
-    [sym_appendWithNewlineOperator] = ACTIONS(1),
+    [sym_directContinuationOperator] = ACTIONS(1),
     [anon_sym_LF] = ACTIONS(1),
     [sym_commentOperator] = ACTIONS(1),
-    [sym_name] = ACTIONS(1),
+    [sym_key] = ACTIONS(1),
     [sym_sectionOperator] = ACTIONS(1),
     [sym_token] = ACTIONS(1),
   },
   [1] = {
     [sym_list] = STATE(6),
-    [sym__emptyElement] = STATE(6),
+    [sym__ambiguousElement] = STATE(6),
     [sym__field] = STATE(6),
     [sym__instruction] = STATE(6),
     [sym__comment] = STATE(6),
     [sym_document] = STATE(7),
-    [sym_dictionary] = STATE(6),
-    [sym_appendWithSpaceOperator] = ACTIONS(3),
-    [sym_name] = ACTIONS(5),
+    [sym_fieldset] = STATE(6),
+    [sym_spacedContinuationOperator] = ACTIONS(3),
+    [sym_key] = ACTIONS(5),
     [ts_builtin_sym_end] = ACTIONS(7),
-    [sym_appendWithNewlineOperator] = ACTIONS(3),
+    [sym_directContinuationOperator] = ACTIONS(3),
     [anon_sym_LF] = ACTIONS(9),
     [sym_sectionOperator] = ACTIONS(11),
     [sym_commentOperator] = ACTIONS(13),
@@ -684,10 +684,10 @@ static uint16_t ts_parse_table[STATE_COUNT][SYMBOL_COUNT] = {
     [sym_token] = ACTIONS(15),
   },
   [3] = {
-    [sym_nameOperator] = ACTIONS(17),
+    [sym_elementOperator] = ACTIONS(17),
   },
   [4] = {
-    [sym_name] = ACTIONS(19),
+    [sym_key] = ACTIONS(19),
   },
   [5] = {
     [sym_token] = ACTIONS(21),
@@ -719,14 +719,14 @@ static uint16_t ts_parse_table[STATE_COUNT][SYMBOL_COUNT] = {
   },
   [12] = {
     [sym_list] = STATE(16),
-    [sym__emptyElement] = STATE(16),
+    [sym__ambiguousElement] = STATE(16),
     [sym__field] = STATE(16),
     [sym__instruction] = STATE(16),
     [sym__comment] = STATE(16),
-    [sym_dictionary] = STATE(16),
-    [sym_appendWithSpaceOperator] = ACTIONS(3),
-    [sym_name] = ACTIONS(5),
-    [sym_appendWithNewlineOperator] = ACTIONS(3),
+    [sym_fieldset] = STATE(16),
+    [sym_spacedContinuationOperator] = ACTIONS(3),
+    [sym_key] = ACTIONS(5),
+    [sym_directContinuationOperator] = ACTIONS(3),
     [anon_sym_LF] = ACTIONS(41),
     [sym_sectionOperator] = ACTIONS(11),
     [sym_commentOperator] = ACTIONS(13),
@@ -737,7 +737,7 @@ static uint16_t ts_parse_table[STATE_COUNT][SYMBOL_COUNT] = {
     [ts_builtin_sym_end] = ACTIONS(43),
   },
   [14] = {
-    [sym_name] = ACTIONS(45),
+    [sym_key] = ACTIONS(45),
   },
   [15] = {
     [anon_sym_LF] = ACTIONS(47),
@@ -790,7 +790,7 @@ static TSParseActionEntry ts_parse_actions[] = {
   [27] = {.count = 1, .reusable = true},  ACCEPT_INPUT(),
   [29] = {.count = 1, .reusable = true}, REDUCE(sym__instruction, 2, .production_id = 1),
   [31] = {.count = 1, .reusable = false}, SHIFT(14),
-  [33] = {.count = 1, .reusable = true}, REDUCE(sym__emptyElement, 2),
+  [33] = {.count = 1, .reusable = true}, REDUCE(sym__ambiguousElement, 2),
   [35] = {.count = 1, .reusable = true}, SHIFT(15),
   [37] = {.count = 1, .reusable = true}, REDUCE(sym__instruction, 2),
   [39] = {.count = 1, .reusable = true}, REDUCE(sym__comment, 2, .production_id = 2),
@@ -804,7 +804,7 @@ static TSParseActionEntry ts_parse_actions[] = {
   [56] = {.count = 1, .reusable = true}, SHIFT(20),
   [58] = {.count = 1, .reusable = true}, SHIFT(21),
   [60] = {.count = 1, .reusable = true}, SHIFT(22),
-  [62] = {.count = 1, .reusable = true}, REDUCE(sym_dictionary, 6, .production_id = 4),
+  [62] = {.count = 1, .reusable = true}, REDUCE(sym_fieldset, 6, .production_id = 4),
   [64] = {.count = 1, .reusable = true}, REDUCE(sym_list, 6, .production_id = 4),
 };
 

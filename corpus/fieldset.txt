@@ -1,14 +1,14 @@
 ===================================
-Dictionary
+Fieldset
 ===================================
-name:
-field = value
+fieldset:
+entry = value
 ---
 
 (document
   (dictionary
-    (name)
-    (nameOperator)
-    (name)
+    (key)
+    (elementOperator)
+    (key)
     (entryOperator)
     (value)))

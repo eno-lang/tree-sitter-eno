@@ -20,15 +20,15 @@ module.exports = grammar({
 
     _instruction: $ => choice(
       $._comment,
-      $._emptyElement,
+      $._ambiguousElement,
       $._field,
-      seq($.appendWithNewlineOperator, alias($.token, 'value')),
-      seq($.appendWithSpaceOperator, alias($.token, 'value')),
-      seq($.sectionOperator, $.name),
-      $.dictionary,
+      seq($.directContinuationOperator, alias($.token, 'value')),
+      seq($.spacedContinuationOperator, alias($.token, 'value')),
+      seq($.sectionOperator, $.key),
+      $.fieldset,
       $.list,
       '\n',
-      // seq($.sectionOperator, $.name, optional(seq('\n', alias($.document, 'section')))),
+      // seq($.sectionOperator, $.key, optional(seq('\n', alias($.document, 'section')))),
     ),
 
     _comment: $ => seq(
@@ -36,42 +36,42 @@ module.exports = grammar({
       alias($.token, 'comment')
     ),
 
-    _emptyElement: $ => seq(
-      $.name,
-      $.nameOperator
+    _ambiguousElement: $ => seq(
+      $.key,
+      $.elementOperator
     ),
 
     _field: $ => seq(
-      $.name,
-      $.nameOperator,
+      $.key,
+      $.elementOperator,
       alias($.token, 'value')
     ),
 
-    dictionary: $ => prec(2, seq(
-      $.name,
-      $.nameOperator,
+    fieldset: $ => prec(2, seq(
+      $.key,
+      $.elementOperator,
       '\n',
-      seq($.name, $.entryOperator, alias($.token, 'value'))
+      seq($.key, $.entryOperator, alias($.token, 'value'))
     )),
 
     list: $ => prec(2, seq(
-      $.name,
-      $.nameOperator,
+      $.key,
+      $.elementOperator,
       '\n',
-      seq($.name, $.itemOperator, alias($.token, 'value'))
+      seq($.key, $.itemOperator, alias($.token, 'value'))
     )),
 
-    name: $ => /[^>:=<\-#|\\\s]|[^>:=<\-#|\\\s][^>:=<\-#|\\\n]*[^>:=<\-#|\\\s]/,
+    key: $ => /[^>:=<\-#|\\\s]|[^>:=<\-#|\\\s][^>:=<\-#|\\\n]*[^>:=<\-#|\\\s]/,
     token: $ => /\S|\S[^\n]*\S/,
 
-    appendWithNewlineOperator: $ => '|',
-    appendWithSpaceOperator: $ => '\\',
+    directContinuationOperator: $ => '|',
+    spacedContinuationOperator: $ => '\\',
     commentOperator: $ => '>',
     copyOperator: $ => '<',
     deepCopyOperator: $ => '<<',
     entryOperator: $ => '=',
     itemOperator: $ => '-',
-    nameOperator: $ => ':',
+    elementOperator: $ => ':',
     sectionOperator: $ => /#+/
   }
 });

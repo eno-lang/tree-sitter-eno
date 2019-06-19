@@ -5,6 +5,6 @@ field: value
 ---
 
 (document
-  (name)
-  (nameOperator)
+  (key)
+  (elementOperator)
   (value))

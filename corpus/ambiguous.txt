@@ -1,9 +1,9 @@
 ===================================
-Name
+Ambiguous
 ===================================
-name:
+element:
 ---
 
 (document
-  (name)
-  (nameOperator))
+  (key)
+  (elementOperator))
