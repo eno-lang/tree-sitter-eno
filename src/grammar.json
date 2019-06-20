@@ -2,113 +2,50 @@
   "name": "eno",
   "rules": {
     "document": {
-      "type": "CHOICE",
-      "members": [
-        {
-          "type": "SEQ",
-          "members": [
-            {
-              "type": "SYMBOL",
-              "name": "_instruction"
-            },
-            {
-              "type": "REPEAT",
-              "content": {
-                "type": "SEQ",
-                "members": [
-                  {
-                    "type": "STRING",
-                    "value": "\n"
-                  },
-                  {
-                    "type": "SYMBOL",
-                    "name": "_instruction"
-                  }
-                ]
-              }
-            }
-          ]
-        },
-        {
-          "type": "BLANK"
-        }
-      ]
+      "type": "REPEAT",
+      "content": {
+        "type": "SYMBOL",
+        "name": "_instruction"
+      }
     },
     "_instruction": {
       "type": "CHOICE",
       "members": [
         {
           "type": "SYMBOL",
-          "name": "_comment"
+          "name": "section"
+        }
+      ]
+    },
+    "section": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_sectionDescend"
         },
         {
           "type": "SYMBOL",
-          "name": "_ambiguousElement"
+          "name": "sectionOperator"
         },
         {
           "type": "SYMBOL",
-          "name": "_field"
-        },
-        {
-          "type": "SEQ",
-          "members": [
-            {
-              "type": "SYMBOL",
-              "name": "directContinuationOperator"
-            },
-            {
-              "type": "ALIAS",
-              "content": {
-                "type": "SYMBOL",
-                "name": "token"
-              },
-              "named": false,
-              "value": "value"
-            }
-          ]
-        },
-        {
-          "type": "SEQ",
-          "members": [
-            {
-              "type": "SYMBOL",
-              "name": "spacedContinuationOperator"
-            },
-            {
-              "type": "ALIAS",
-              "content": {
-                "type": "SYMBOL",
-                "name": "token"
-              },
-              "named": false,
-              "value": "value"
-            }
-          ]
-        },
-        {
-          "type": "SEQ",
-          "members": [
-            {
-              "type": "SYMBOL",
-              "name": "sectionOperator"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "key"
-            }
-          ]
+          "name": "key"
         },
         {
           "type": "SYMBOL",
-          "name": "fieldset"
+          "name": "_endOfLine"
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_instruction"
+          }
         },
         {
           "type": "SYMBOL",
-          "name": "list"
-        },
-        {
-          "type": "STRING",
-          "value": "\n"
+          "name": "_sectionAscend"
         }
       ]
     },
@@ -299,11 +236,24 @@
   "extras": [
     {
       "type": "PATTERN",
-      "value": "[^\\S\\n]"
+      "value": "\\s"
     }
   ],
   "conflicts": [],
-  "externals": [],
+  "externals": [
+    {
+      "type": "SYMBOL",
+      "name": "_endOfLine"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "_sectionAscend"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "_sectionDescend"
+    }
+  ],
   "inline": [],
   "supertypes": []
 }

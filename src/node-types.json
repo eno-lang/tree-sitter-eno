@@ -15,6 +15,11 @@
     "fields": {}
   },
   {
+    "type": "section",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "\n",
     "named": false
   },

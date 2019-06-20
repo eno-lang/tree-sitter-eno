@@ -1,22 +1,18 @@
 ===================================
-Empty Section
-===================================
-# key
----
-
-(document
-  (sectionOperator)
-  (key))
-
-===================================
 Section
 ===================================
-# key
-key:
+#sectionA
+##sectionAA
+#sectionB
 ---
 
 (document
-  (sectionOperator)
-  (key)
-    (key)
-    (elementOperator))
+  (section (sectionOperator) (key)
+    (section (sectionOperator) (key)
+
+    )
+  )
+  (section (sectionOperator) (key)
+
+  )
+)

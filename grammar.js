@@ -1,35 +1,45 @@
 module.exports = grammar({
   name: 'eno',
 
-  extras: $ => [
-    /[^\S\n]/
+  // extras: $ => [
+  //   /[^\S\n]+/
+  // ],
+
+  externals: $ => [
+    $._endOfLine,
+    $._sectionAscend,
+    $._sectionDescend
   ],
 
   rules: {
-    document: $ => optional(
-      seq(
-        $._instruction,
-        repeat(
-          seq(
-            '\n',
-            $._instruction
-          )
-        )
-      )
-    ),
+    document: $ => repeat($._instruction),
 
     _instruction: $ => choice(
-      $._comment,
-      $._ambiguousElement,
-      $._field,
-      seq($.directContinuationOperator, alias($.token, 'value')),
-      seq($.spacedContinuationOperator, alias($.token, 'value')),
-      seq($.sectionOperator, $.key),
-      $.fieldset,
-      $.list,
-      '\n',
-      // seq($.sectionOperator, $.key, optional(seq('\n', alias($.document, 'section')))),
+      $.section
     ),
+
+    section: $ => seq(
+      $._sectionDescend,
+      $.sectionOperator,
+      $.key,
+      $._endOfLine,
+      repeat($._instruction),
+      $._sectionAscend
+    ),
+
+    // _instruction: $ => choice(
+    //   $.section
+    //   $._comment,
+    //   $._ambiguousElement,
+    //   $._field,
+    //   seq($.directContinuationOperator, alias($.token, 'value')),
+    //   seq($.spacedContinuationOperator, alias($.token, 'value')),
+    //   seq($.sectionOperator, $.key),
+    //   $.fieldset,
+    //   $.list,
+    //   '\n',
+    //   seq($.sectionOperator, $.key, optional(seq('\n', alias($.document, 'section')))),
+    // ),
 
     _comment: $ => seq(
       $.commentOperator,
