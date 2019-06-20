@@ -1,10 +1,34 @@
 ===================================
-Field
+Single line field
 ===================================
 field: value
 ---
 
 (document
-  (key)
-  (elementOperator)
-  (value))
+  (field (key) (elementOperator) (value))
+)
+
+===================================
+Two single line fields
+===================================
+field: value
+field: value
+---
+
+(document
+  (field (key) (elementOperator) (value))
+  (field (key) (elementOperator) (value))
+)
+
+===================================
+Two single line fields separated by empty line
+===================================
+field: value
+
+field: value
+---
+
+(document
+  (field (key) (elementOperator) (value))
+  (field (key) (elementOperator) (value))
+)

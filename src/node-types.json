@@ -1,6 +1,16 @@
 [
   {
+    "type": "comment",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "document",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "field",
     "named": true,
     "fields": {}
   },

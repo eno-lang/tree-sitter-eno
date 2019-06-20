@@ -11,13 +11,21 @@ module.exports = grammar({
     document: $ => repeat($._instruction),
 
     _instruction: $ => choice(
-      $._comment,
+      $.comment,
+      $.field,
       $.section
     ),
 
-    _comment: $ => seq(
+    comment: $ => seq(
       $.commentOperator,
       alias($.token, 'comment'),
+      $._endOfLine
+    ),
+
+    field: $ => seq(
+      $.key,
+      $.elementOperator,
+      alias($.token, 'value'),
       $._endOfLine
     ),
 
@@ -52,12 +60,6 @@ module.exports = grammar({
     _ambiguousElement: $ => seq(
       $.key,
       $.elementOperator
-    ),
-
-    _field: $ => seq(
-      $.key,
-      $.elementOperator,
-      alias($.token, 'value')
     ),
 
     fieldset: $ => prec(2, seq(

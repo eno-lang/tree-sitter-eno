@@ -13,7 +13,11 @@
       "members": [
         {
           "type": "SYMBOL",
-          "name": "_comment"
+          "name": "comment"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "field"
         },
         {
           "type": "SYMBOL",
@@ -21,7 +25,7 @@
         }
       ]
     },
-    "_comment": {
+    "comment": {
       "type": "SEQ",
       "members": [
         {
@@ -36,6 +40,32 @@
           },
           "named": false,
           "value": "comment"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_endOfLine"
+        }
+      ]
+    },
+    "field": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "key"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "elementOperator"
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "SYMBOL",
+            "name": "token"
+          },
+          "named": false,
+          "value": "value"
         },
         {
           "type": "SYMBOL",
@@ -120,28 +150,6 @@
         {
           "type": "SYMBOL",
           "name": "elementOperator"
-        }
-      ]
-    },
-    "_field": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "key"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "elementOperator"
-        },
-        {
-          "type": "ALIAS",
-          "content": {
-            "type": "SYMBOL",
-            "name": "token"
-          },
-          "named": false,
-          "value": "value"
         }
       ]
     },
