@@ -1,10 +1,6 @@
 module.exports = grammar({
   name: 'eno',
 
-  // extras: $ => [
-  //   /[^\S\n]+/
-  // ],
-
   externals: $ => [
     $._endOfLine,
     $._sectionAscend,
