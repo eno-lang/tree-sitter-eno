@@ -8,12 +8,29 @@
         "name": "_instruction"
       }
     },
-    "_instruction": {
+    "_commentOrEmpty": {
       "type": "CHOICE",
       "members": [
         {
           "type": "SYMBOL",
           "name": "comment"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_emptyLine"
+        }
+      ]
+    },
+    "_emptyLine": {
+      "type": "PATTERN",
+      "value": "[ \\t\\uFEFF\\u2060\\u200B]*\\n"
+    },
+    "_instruction": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_commentOrEmpty"
         },
         {
           "type": "SYMBOL",
@@ -26,26 +43,33 @@
       ]
     },
     "comment": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "commentOperator"
-        },
-        {
-          "type": "ALIAS",
-          "content": {
-            "type": "SYMBOL",
-            "name": "token"
-          },
-          "named": false,
-          "value": "comment"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "_endOfLine"
+      "type": "PREC_RIGHT",
+      "value": 0,
+      "content": {
+        "type": "REPEAT1",
+        "content": {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "commentOperator"
+            },
+            {
+              "type": "ALIAS",
+              "content": {
+                "type": "SYMBOL",
+                "name": "token"
+              },
+              "named": false,
+              "value": "comment"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "_endOfLine"
+            }
+          ]
         }
-      ]
+      }
     },
     "field": {
       "type": "SEQ",
@@ -287,7 +311,7 @@
   "extras": [
     {
       "type": "PATTERN",
-      "value": "\\s"
+      "value": "[ \\t\\uFEFF\\u2060\\u200B]"
     }
   ],
   "conflicts": [],

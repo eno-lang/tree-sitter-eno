@@ -1,6 +1,10 @@
 module.exports = grammar({
   name: 'eno',
 
+  extras: $ => [
+    /[ \t\uFEFF\u2060\u200B]/
+  ],
+
   externals: $ => [
     $._endOfLine,
     $._sectionAscend,
@@ -10,16 +14,27 @@ module.exports = grammar({
   rules: {
     document: $ => repeat($._instruction),
 
-    _instruction: $ => choice(
+    _commentOrEmpty: $ => choice(
       $.comment,
+      $._emptyLine
+    ),
+
+    _emptyLine: $ => /[ \t\uFEFF\u2060\u200B]*\n/,
+
+    _instruction: $ => choice(
+      $._commentOrEmpty,
       $.field,
       $.section
     ),
 
-    comment: $ => seq(
-      $.commentOperator,
-      alias($.token, 'comment'),
-      $._endOfLine
+    comment: $ => prec.right(
+      repeat1(
+        seq(
+          $.commentOperator,
+          alias($.token, 'comment'),
+          $._endOfLine
+        )
+      )
     ),
 
     field: $ => seq(
