@@ -59,6 +59,41 @@
           "name": "key"
         },
         {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "SYMBOL",
+                      "name": "copyOperator"
+                    },
+                    {
+                      "type": "SYMBOL",
+                      "name": "deepCopyOperator"
+                    }
+                  ]
+                },
+                {
+                  "type": "ALIAS",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "token"
+                  },
+                  "named": false,
+                  "value": "template"
+                }
+              ]
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
           "type": "SYMBOL",
           "name": "_endOfLine"
         },

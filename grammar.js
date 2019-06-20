@@ -25,6 +25,12 @@ module.exports = grammar({
       $._sectionDescend,
       $.sectionOperator,
       $.key,
+      optional(
+        seq(
+          choice($.copyOperator, $.deepCopyOperator),
+          alias($.token, 'template')
+        )
+      ),
       $._endOfLine,
       repeat($._instruction),
       $._sectionAscend

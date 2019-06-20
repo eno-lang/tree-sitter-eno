@@ -1,9 +1,9 @@
 ===================================
-Section
+Sections A/AA/B
 ===================================
-#sectionA
-##sectionAA
-#sectionB
+# A
+## AA
+# B
 ---
 
 (document
@@ -13,6 +13,101 @@ Section
     )
   )
   (section (sectionOperator) (key)
+
+  )
+)
+
+===================================
+Sections A/AA/B without spaces
+===================================
+#A
+##AA
+#B
+---
+
+(document
+  (section (sectionOperator) (key)
+    (section (sectionOperator) (key)
+
+    )
+  )
+  (section (sectionOperator) (key)
+
+  )
+)
+
+===================================
+Sections A/AA/B<A
+===================================
+# A
+## AA
+# B < A
+---
+
+(document
+  (section (sectionOperator) (key)
+    (section (sectionOperator) (key)
+
+    )
+  )
+  (section (sectionOperator) (key) (copyOperator) (template)
+
+  )
+)
+
+===================================
+Sections A/AA/B<A without spaces
+===================================
+#A
+##AA
+#B<A
+---
+
+(document
+  (section (sectionOperator) (key)
+    (section (sectionOperator) (key)
+
+    )
+  )
+  (section (sectionOperator) (key) (copyOperator) (template)
+
+  )
+)
+
+===================================
+Sections A/AA/B<<A
+===================================
+# A
+## AA
+# B << A
+---
+
+(document
+  (section (sectionOperator) (key)
+    (section (sectionOperator) (key)
+
+    )
+  )
+  (section (sectionOperator) (key) (deepCopyOperator) (template)
+
+  )
+)
+
+===================================
+Sections A/AA/B<<A without spaces
+===================================
+#A
+##AA
+#B<<A
+---
+
+(document
+  (section (sectionOperator) (key)
+    (section (sectionOperator) (key)
+
+    )
+  )
+  (section (sectionOperator) (key) (deepCopyOperator) (template)
 
   )
 )
