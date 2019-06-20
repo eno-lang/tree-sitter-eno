@@ -15,7 +15,14 @@ module.exports = grammar({
     document: $ => repeat($._instruction),
 
     _instruction: $ => choice(
+      $._comment,
       $.section
+    ),
+
+    _comment: $ => seq(
+      $.commentOperator,
+      alias($.token, 'comment'),
+      $._endOfLine
     ),
 
     section: $ => seq(
@@ -29,7 +36,6 @@ module.exports = grammar({
 
     // _instruction: $ => choice(
     //   $.section
-    //   $._comment,
     //   $._ambiguousElement,
     //   $._field,
     //   seq($.directContinuationOperator, alias($.token, 'value')),
@@ -40,11 +46,6 @@ module.exports = grammar({
     //   '\n',
     //   seq($.sectionOperator, $.key, optional(seq('\n', alias($.document, 'section')))),
     // ),
-
-    _comment: $ => seq(
-      $.commentOperator,
-      alias($.token, 'comment')
-    ),
 
     _ambiguousElement: $ => seq(
       $.key,

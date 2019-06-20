@@ -13,7 +13,33 @@
       "members": [
         {
           "type": "SYMBOL",
+          "name": "_comment"
+        },
+        {
+          "type": "SYMBOL",
           "name": "section"
+        }
+      ]
+    },
+    "_comment": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "commentOperator"
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "SYMBOL",
+            "name": "token"
+          },
+          "named": false,
+          "value": "comment"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_endOfLine"
         }
       ]
     },
@@ -46,24 +72,6 @@
         {
           "type": "SYMBOL",
           "name": "_sectionAscend"
-        }
-      ]
-    },
-    "_comment": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "commentOperator"
-        },
-        {
-          "type": "ALIAS",
-          "content": {
-            "type": "SYMBOL",
-            "name": "token"
-          },
-          "named": false,
-          "value": "comment"
         }
       ]
     },

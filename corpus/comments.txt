@@ -1,0 +1,34 @@
+===================================
+Single comment line
+===================================
+> commment
+---
+
+(document
+  (commentOperator) (comment)
+)
+
+===================================
+Two consecutive comment lines
+===================================
+> commment
+> commment
+---
+
+(document
+  (commentOperator) (comment)
+  (commentOperator) (comment)
+)
+
+===================================
+Two comment lines separated by empty line
+===================================
+> commment
+
+> commment
+---
+
+(document
+  (commentOperator) (comment)
+  (commentOperator) (comment)
+)

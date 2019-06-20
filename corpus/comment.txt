@@ -1,9 +1,0 @@
-===================================
-Comment
-===================================
-> commment
----
-
-(document
-  (commentOperator)
-  (comment))
