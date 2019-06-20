@@ -1,13 +1,84 @@
 ===================================
-List
+List with a single item
 ===================================
 list:
 - item
 ---
 
 (document
-  (list
-    (key)
-    (elementOperator)
-    (itemOperator)
-    (value))
+  (list (key) (elementOperator)
+    (item (itemOperator) (value))
+  )
+)
+
+===================================
+List with two items
+===================================
+list:
+- item
+- item
+---
+
+(document
+  (list (key) (elementOperator)
+    (item (itemOperator) (value))
+    (item (itemOperator) (value))
+  )
+)
+
+===================================
+List with two items separated by empty lines
+===================================
+list:
+
+- item
+
+- item
+---
+
+(document
+  (list (key) (elementOperator)
+    (item (itemOperator) (value))
+    (item (itemOperator) (value))
+  )
+)
+
+===================================
+List with two items separated by comments
+===================================
+list:
+> comment
+- item
+> comment
+- item
+---
+
+(document
+  (list (key) (elementOperator)
+    (comment (commentOperator) (comment))
+    (item (itemOperator) (value))
+    (comment (commentOperator) (comment))
+    (item (itemOperator) (value))
+  )
+)
+
+===================================
+List with two items separated by comments and empty lines
+===================================
+list:
+
+> comment
+- item
+> comment
+
+- item
+---
+
+(document
+  (list (key) (elementOperator)
+    (comment (commentOperator) (comment))
+    (item (itemOperator) (value))
+    (comment (commentOperator) (comment))
+    (item (itemOperator) (value))
+  )
+)

@@ -20,6 +20,11 @@
     "fields": {}
   },
   {
+    "type": "item",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "list",
     "named": true,
     "fields": {}

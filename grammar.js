@@ -23,6 +23,7 @@ module.exports = grammar({
 
     _instruction: $ => choice(
       $._commentOrEmpty,
+      $.list,
       $.field,
       $.section
     ),
@@ -42,6 +43,26 @@ module.exports = grammar({
       $.elementOperator,
       alias($.token, 'value'),
       $._endOfLine
+    ),
+
+    item: $ => seq(
+      $.itemOperator,
+      alias($.token, 'value'),
+      $._endOfLine
+    ),
+
+    list: $ => seq(
+      $.key,
+      $.elementOperator,
+      $._endOfLine,
+      prec.right(
+        repeat1(
+          seq(
+            repeat($._commentOrEmpty),
+            $.item
+          )
+        )
+      )
     ),
 
     section: $ => seq(
@@ -82,13 +103,6 @@ module.exports = grammar({
       $.elementOperator,
       '\n',
       seq($.key, $.entryOperator, alias($.token, 'value'))
-    )),
-
-    list: $ => prec(2, seq(
-      $.key,
-      $.elementOperator,
-      '\n',
-      seq($.key, $.itemOperator, alias($.token, 'value'))
     )),
 
     key: $ => /[^>:=<\-#|\\\s]|[^>:=<\-#|\\\s][^>:=<\-#|\\\n]*[^>:=<\-#|\\\s]/,
