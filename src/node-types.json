@@ -10,6 +10,11 @@
     "fields": {}
   },
   {
+    "type": "entry",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "field",
     "named": true,
     "fields": {}
@@ -33,10 +38,6 @@
     "type": "section",
     "named": true,
     "fields": {}
-  },
-  {
-    "type": "\n",
-    "named": false
   },
   {
     "type": "key",

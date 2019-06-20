@@ -1,14 +1,84 @@
 ===================================
-Fieldset
+Fieldset with a single entry
 ===================================
 fieldset:
 entry = value
 ---
 
 (document
-  (dictionary
-    (key)
-    (elementOperator)
-    (key)
-    (entryOperator)
-    (value)))
+  (fieldset (key) (elementOperator)
+    (entry (key) (entryOperator) (value))
+  )
+)
+
+===================================
+Fieldset with two entries
+===================================
+fieldset:
+entry = value
+entry = value
+---
+
+(document
+  (fieldset (key) (elementOperator)
+    (entry (key) (entryOperator) (value))
+    (entry (key) (entryOperator) (value))
+  )
+)
+
+===================================
+Fieldset with two entries separated by empty lines
+===================================
+fieldset:
+
+entry = value
+
+entry = value
+---
+
+(document
+  (fieldset (key) (elementOperator)
+    (entry (key) (entryOperator) (value))
+    (entry (key) (entryOperator) (value))
+  )
+)
+
+===================================
+Fieldset with two entries separated by comments
+===================================
+fieldset:
+> comment
+entry = value
+> comment
+entry = value
+---
+
+(document
+  (fieldset (key) (elementOperator)
+    (comment (commentOperator) (comment))
+    (entry (key) (entryOperator) (value))
+    (comment (commentOperator) (comment))
+    (entry (key) (entryOperator) (value))
+  )
+)
+
+===================================
+Fieldset with two entries separated by comments and empty lines
+===================================
+fieldset:
+
+> comment
+entry = value
+> comment
+
+entry = value
+---
+
+(document
+  (fieldset (key) (elementOperator)
+    (comment (commentOperator) (comment))
+    (entry (key) (entryOperator) (value))
+    (comment (commentOperator) (comment))
+    (entry (key) (entryOperator) (value))
+  )
+)
