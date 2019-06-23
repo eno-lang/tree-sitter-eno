@@ -1,5 +1,86 @@
 ===================================
-Section (A/AA/B)
+Section
+===================================
+# section
+---
+
+(document
+  (section (sectionOperator) (key))
+)
+
+===================================
+Section (with elements and empty lines)
+===================================
+# section
+
+field: value
+
+fieldset:
+entry = value
+
+list:
+- item
+---
+
+(document
+  (section (sectionOperator) (key)
+    (field (key) (elementOperator) (value))
+    (fieldset (key) (elementOperator)
+      (entry (key) (entryOperator) (value))
+    )
+    (list (key) (elementOperator)
+      (item (itemOperator) (value))
+    )
+  )
+)
+
+===================================
+Sections (A/AA both with elements and empty lines)
+===================================
+# A
+
+field: value
+
+fieldset:
+entry = value
+
+list:
+- item
+
+## AA
+
+field: value
+
+fieldset:
+entry = value
+
+list:
+- item
+---
+
+(document
+  (section (sectionOperator) (key)
+    (field (key) (elementOperator) (value))
+    (fieldset (key) (elementOperator)
+      (entry (key) (entryOperator) (value))
+    )
+    (list (key) (elementOperator)
+      (item (itemOperator) (value))
+    )
+    (section (sectionOperator) (key)
+      (field (key) (elementOperator) (value))
+      (fieldset (key) (elementOperator)
+        (entry (key) (entryOperator) (value))
+      )
+      (list (key) (elementOperator)
+        (item (itemOperator) (value))
+      )
+    )
+  )
+)
+
+===================================
+Sections (A/AA/B)
 ===================================
 # A
 ## AA
@@ -18,7 +99,7 @@ Section (A/AA/B)
 )
 
 ===================================
-Section (A/AA/B without spaces)
+Sections (A/AA/B without spaces)
 ===================================
 #A
 ##AA
@@ -37,7 +118,7 @@ Section (A/AA/B without spaces)
 )
 
 ===================================
-Section (A/AA/B<A)
+Sections (A/AA/B<A)
 ===================================
 # A
 ## AA
@@ -56,7 +137,7 @@ Section (A/AA/B<A)
 )
 
 ===================================
-Section (A/AA/B<A without spaces)
+Sections (A/AA/B<A without spaces)
 ===================================
 #A
 ##AA
@@ -75,7 +156,7 @@ Section (A/AA/B<A without spaces)
 )
 
 ===================================
-Section (A/AA/B<<A)
+Sections (A/AA/B<<A)
 ===================================
 # A
 ## AA
@@ -94,7 +175,7 @@ Section (A/AA/B<<A)
 )
 
 ===================================
-Section (A/AA/B<<A without spaces)
+Sections (A/AA/B<<A without spaces)
 ===================================
 #A
 ##AA
