@@ -17,10 +17,12 @@ module.exports = grammar({
     /[ \t\uFEFF\u2060\u200B]/
   ],
 
+  // DON'T REORDER (must match the one in scanner.cc)
   externals: $ => [
     $._endOfLine,
     $._sectionAscend,
-    $._sectionDescend
+    $._sectionDescend,
+    $.multilineFieldOperator
   ],
 
   inline: $ => [
@@ -104,6 +106,10 @@ module.exports = grammar({
           repeat($._commentOrEmpty),
           $.continuation
         ))
+      ),
+      seq(
+        $.multilineFieldOperator,
+        $._endOfLine
       )
     ),
 

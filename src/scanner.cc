@@ -1,65 +1,106 @@
 #include <tree_sitter/parser.h>
 
+// Serialization buffer indices
+#define SECTION_DEPTH_INDEX 0
+#define MULTILINE_DASHES_INDEX 1
+
 namespace {
 
+// DON'T REORDER (must match the one in grammar.js)
 enum TokenType {
-  END_OF_LINE,
-  SECTION_ASCEND,
-  SECTION_DESCEND
+  _END_OF_LINE,
+  _SECTION_ASCEND,
+  _SECTION_DESCEND,
+  MULTILINE_FIELD_OPERATOR
 };
 
 struct Scanner {
   Scanner() {
-    depth = 0;
+    multiline_dashes = 0;
+    section_depth = 0;
   }
 
   unsigned serialize(char *buffer) {
-    if(depth == 0) {
+    if (multiline_dashes == 0 && section_depth == 0) {
       return 0;
     }
 
-    buffer[0] = depth;
-    return 1;
+    buffer[SECTION_DEPTH_INDEX] = section_depth;
+    buffer[MULTILINE_DASHES_INDEX] = multiline_dashes;
+
+    return 2;
   }
 
   void deserialize(const char *buffer, unsigned length) {
     if (length > 0) {
-      depth = buffer[0];
+      section_depth = buffer[SECTION_DEPTH_INDEX];
+      multiline_dashes = buffer[MULTILINE_DASHES_INDEX];
     }
   }
 
   bool scan(TSLexer *lexer, const bool *valid_symbols) {
-    if ((valid_symbols[SECTION_DESCEND] || valid_symbols[SECTION_ASCEND]) &&
+    if (valid_symbols[MULTILINE_FIELD_OPERATOR] && lexer->lookahead == '-') {
+      uint16_t new_multiline_dashes = 0;
+
+      lexer->mark_end(lexer);
+
+      if (multiline_dashes == 0) {
+        do {
+          lexer->advance(lexer, false);
+          new_multiline_dashes++;
+        } while (lexer->lookahead == '-');
+
+        if(new_multiline_dashes >= 2) {
+          multiline_dashes = new_multiline_dashes;
+          lexer->mark_end(lexer);
+          lexer->result_symbol = MULTILINE_FIELD_OPERATOR;
+          return true;
+        }
+      } else {
+        do {
+          lexer->advance(lexer, false);
+          new_multiline_dashes++;
+        } while (lexer->lookahead == '-' && new_multiline_dashes <= multiline_dashes);
+
+        if(new_multiline_dashes == multiline_dashes) {
+          lexer->mark_end(lexer);
+          lexer->result_symbol = MULTILINE_FIELD_OPERATOR;
+          return true;
+        }
+      }
+
+      return false;
+    } else if ((valid_symbols[_SECTION_DESCEND] || valid_symbols[_SECTION_ASCEND]) &&
         lexer->lookahead == '#') {
-      uint16_t new_depth = 0;
+      uint16_t new_section_depth = 0;
 
       lexer->mark_end(lexer);
 
       do {
         lexer->advance(lexer, false);
-        new_depth++;
+        new_section_depth++;
       } while (lexer->lookahead == '#');
 
-      if (new_depth == depth + 1) {
-        depth = new_depth;
-        lexer->result_symbol = SECTION_DESCEND;
+      if (new_section_depth == section_depth + 1) {
+        section_depth = new_section_depth;
+        lexer->result_symbol = _SECTION_DESCEND;
         return true;
-      } else if (new_depth <= depth) {
-        depth--;
-        lexer->result_symbol = SECTION_ASCEND;
+      } else if (new_section_depth <= section_depth) {
+        section_depth--;
+        lexer->result_symbol = _SECTION_ASCEND;
         return true;
       } else {
         return false;  // hierarchy layer skip (e.g. from '# foo' to '### foo')
       }
-    } else if (valid_symbols[SECTION_ASCEND] && lexer->lookahead == 0) {
-      if (depth > 0) {
-        depth--;
-        lexer->result_symbol = SECTION_ASCEND;
+    } else if (valid_symbols[_SECTION_ASCEND] && lexer->lookahead == 0) {
+      if (section_depth > 0) {
+        section_depth--;
+        lexer->result_symbol = _SECTION_ASCEND;
         return true;
       }
-    } else if (valid_symbols[END_OF_LINE] &&
+    } else if (valid_symbols[_END_OF_LINE] &&
                (lexer->lookahead == '\n' || lexer->lookahead == 0)) {
-      lexer->result_symbol = END_OF_LINE;
+      lexer->result_symbol = _END_OF_LINE;
 
       if (lexer->lookahead == '\n') {
         lexer->advance(lexer, true);
@@ -71,7 +112,8 @@ struct Scanner {
     return false;
   }
 
-  uint16_t depth;
+  uint16_t multiline_dashes;
+  uint16_t section_depth;
 };
 
 }
