@@ -5,8 +5,10 @@ module.exports = grammar({
     [$.element, $.fieldset],
     [$.element, $.field, $.fieldset, $.list],
     [$.field],
+    [$.fieldset],
     [$.entry],
-    [$.item]
+    [$.item],
+    [$.list]
   ],
 
   extras: $ => [
@@ -96,10 +98,10 @@ module.exports = grammar({
       $.key,
       $.elementOperator,
       $._endOfLine,
-      prec.right(repeat1(seq(
+      repeat1(seq(
         repeat($._commentOrEmpty),
         $.entry
-      )))
+      ))
     ),
 
     item: $ => seq(
@@ -116,10 +118,10 @@ module.exports = grammar({
       $.key,
       $.elementOperator,
       $._endOfLine,
-      prec.right(repeat1(seq(
+      repeat1(seq(
         repeat($._commentOrEmpty),
         $.item
-      )))
+      ))
     ),
 
     section: $ => seq(

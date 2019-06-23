@@ -295,26 +295,22 @@
           "name": "_endOfLine"
         },
         {
-          "type": "PREC_RIGHT",
-          "value": 0,
+          "type": "REPEAT1",
           "content": {
-            "type": "REPEAT1",
-            "content": {
-              "type": "SEQ",
-              "members": [
-                {
-                  "type": "REPEAT",
-                  "content": {
-                    "type": "SYMBOL",
-                    "name": "_commentOrEmpty"
-                  }
-                },
-                {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "REPEAT",
+                "content": {
                   "type": "SYMBOL",
-                  "name": "entry"
+                  "name": "_commentOrEmpty"
                 }
-              ]
-            }
+              },
+              {
+                "type": "SYMBOL",
+                "name": "entry"
+              }
+            ]
           }
         }
       ]
@@ -376,26 +372,22 @@
           "name": "_endOfLine"
         },
         {
-          "type": "PREC_RIGHT",
-          "value": 0,
+          "type": "REPEAT1",
           "content": {
-            "type": "REPEAT1",
-            "content": {
-              "type": "SEQ",
-              "members": [
-                {
-                  "type": "REPEAT",
-                  "content": {
-                    "type": "SYMBOL",
-                    "name": "_commentOrEmpty"
-                  }
-                },
-                {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "REPEAT",
+                "content": {
                   "type": "SYMBOL",
-                  "name": "item"
+                  "name": "_commentOrEmpty"
                 }
-              ]
-            }
+              },
+              {
+                "type": "SYMBOL",
+                "name": "item"
+              }
+            ]
           }
         }
       ]
@@ -533,10 +525,16 @@
       "field"
     ],
     [
+      "fieldset"
+    ],
+    [
       "entry"
     ],
     [
       "item"
+    ],
+    [
+      "list"
     ]
   ],
   "externals": [
