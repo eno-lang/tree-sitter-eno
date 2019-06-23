@@ -1,0 +1,34 @@
+===================================
+Single empty
+===================================
+empty
+---
+
+(document
+  (empty (key))
+)
+
+===================================
+Two empties
+===================================
+empty
+empty
+---
+
+(document
+  (empty (key))
+  (empty (key))
+)
+
+===================================
+Two empties separated by an empty line
+===================================
+empty
+
+empty
+---
+
+(document
+  (empty (key))
+  (empty (key))
+)

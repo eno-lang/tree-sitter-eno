@@ -10,6 +10,16 @@
     "fields": {}
   },
   {
+    "type": "element",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "empty",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "entry",
     "named": true,
     "fields": {}

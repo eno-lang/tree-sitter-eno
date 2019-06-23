@@ -1,6 +1,11 @@
 module.exports = grammar({
   name: 'eno',
 
+  conflicts: $ => [
+    [$.element, $.fieldset],
+    [$.element, $.fieldset, $.list]
+  ],
+
   extras: $ => [
     /[ \t\uFEFF\u2060\u200B]/
   ],
@@ -23,10 +28,23 @@ module.exports = grammar({
 
     _instruction: $ => choice(
       $._commentOrEmpty,
-      $.list,
-      $.fieldset,
+      $.element,
+      $.empty,
       $.field,
+      $.fieldset,
+      $.list,
       $.section
+    ),
+
+    element: $ => seq(
+      $.key,
+      $.elementOperator,
+      $._endOfLine
+    ),
+
+    empty: $ => seq(
+      $.key,
+      $._endOfLine
     ),
 
     comment: $ => prec.right(
@@ -100,24 +118,6 @@ module.exports = grammar({
       $._endOfLine,
       repeat($._instruction),
       $._sectionAscend
-    ),
-
-    // _instruction: $ => choice(
-    //   $.section
-    //   $._ambiguousElement,
-    //   $._field,
-    //   seq($.directContinuationOperator, alias($.token, 'value')),
-    //   seq($.spacedContinuationOperator, alias($.token, 'value')),
-    //   seq($.sectionOperator, $.key),
-    //   $.fieldset,
-    //   $.list,
-    //   '\n',
-    //   seq($.sectionOperator, $.key, optional(seq('\n', alias($.document, 'section')))),
-    // ),
-
-    _ambiguousElement: $ => seq(
-      $.key,
-      $.elementOperator
     ),
 
     key: $ => /[^>:=<\-#|\\\s]|[^>:=<\-#|\\\s][^>:=<\-#|\\\n]*[^>:=<\-#|\\\s]/,

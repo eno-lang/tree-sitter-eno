@@ -1,0 +1,34 @@
+===================================
+Single ambiguous element
+===================================
+element:
+---
+
+(document
+  (element (key) (elementOperator))
+)
+
+===================================
+Two ambiguous elements
+===================================
+element:
+element:
+---
+
+(document
+  (element (key) (elementOperator))
+  (element (key) (elementOperator))
+)
+
+===================================
+Two ambiguous elements separated by an empty line
+===================================
+element:
+
+element:
+---
+
+(document
+  (element (key) (elementOperator))
+  (element (key) (elementOperator))
+)

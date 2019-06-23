@@ -34,11 +34,11 @@
         },
         {
           "type": "SYMBOL",
-          "name": "list"
+          "name": "element"
         },
         {
           "type": "SYMBOL",
-          "name": "fieldset"
+          "name": "empty"
         },
         {
           "type": "SYMBOL",
@@ -46,7 +46,45 @@
         },
         {
           "type": "SYMBOL",
+          "name": "fieldset"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "list"
+        },
+        {
+          "type": "SYMBOL",
           "name": "section"
+        }
+      ]
+    },
+    "element": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "key"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "elementOperator"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_endOfLine"
+        }
+      ]
+    },
+    "empty": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "key"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_endOfLine"
         }
       ]
     },
@@ -300,19 +338,6 @@
         }
       ]
     },
-    "_ambiguousElement": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "key"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "elementOperator"
-        }
-      ]
-    },
     "key": {
       "type": "PATTERN",
       "value": "[^>:=<\\-#|\\\\\\s]|[^>:=<\\-#|\\\\\\s][^>:=<\\-#|\\\\\\n]*[^>:=<\\-#|\\\\\\s]"
@@ -364,7 +389,17 @@
       "value": "[ \\t\\uFEFF\\u2060\\u200B]"
     }
   ],
-  "conflicts": [],
+  "conflicts": [
+    [
+      "element",
+      "fieldset"
+    ],
+    [
+      "element",
+      "fieldset",
+      "list"
+    ]
+  ],
   "externals": [
     {
       "type": "SYMBOL",

@@ -8,10 +8,7 @@ fooasfdasd:
 ---
 
 (document
-  (key)
-  (elementOperator)
-  (value)
-  (key)
-  (elementOperator)
-  (key)
-  (elementOperator))
+  (field (key) (elementOperator) (value))
+  (element (key) (elementOperator))
+  (element (key) (elementOperator))
+)
