@@ -1,5 +1,5 @@
 ===================================
-List with a single item
+List (one item)
 ===================================
 list:
 - item
@@ -12,7 +12,23 @@ list:
 )
 
 ===================================
-List with two items
+List (one item with continuation)
+===================================
+list:
+- item
+| continuation
+---
+
+(document
+  (list (key) (elementOperator)
+    (item (itemOperator) (value)
+      (continuation (directContinuationOperator) (value))
+    )
+  )
+)
+
+===================================
+List (multiple items)
 ===================================
 list:
 - item
@@ -27,7 +43,28 @@ list:
 )
 
 ===================================
-List with two items separated by empty lines
+List (multiple items with continuations)
+===================================
+list:
+- item
+| continuation
+- item
+| continuation
+---
+
+(document
+  (list (key) (elementOperator)
+    (item (itemOperator) (value)
+      (continuation (directContinuationOperator) (value))
+    )
+    (item (itemOperator) (value)
+      (continuation (directContinuationOperator) (value))
+    )
+  )
+)
+
+===================================
+List (multiple items with empty lines)
 ===================================
 list:
 
@@ -44,7 +81,7 @@ list:
 )
 
 ===================================
-List with two items separated by comments
+List (multiple items with comments)
 ===================================
 list:
 > comment
@@ -63,7 +100,7 @@ list:
 )
 
 ===================================
-List with two items separated by comments and empty lines
+List (multiple items with comments and empty lines)
 ===================================
 list:
 
@@ -80,5 +117,32 @@ list:
     (item (itemOperator) (value))
     (comment (commentOperator) (comment))
     (item (itemOperator) (value))
+  )
+)
+
+===================================
+List (multiple items with comments, continuations and empty lines)
+===================================
+list:
+
+- item
+> comment
+| continuation
+> comment
+
+- item
+| continuation
+---
+
+(document
+  (list (key) (elementOperator)
+    (item (itemOperator) (value)
+      (comment (commentOperator) (comment))
+      (continuation (directContinuationOperator) (value))
+    )
+    (comment (commentOperator) (comment))
+    (item (itemOperator) (value)
+      (continuation (directContinuationOperator) (value))
+    )
   )
 )

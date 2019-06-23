@@ -5,6 +5,11 @@
     "fields": {}
   },
   {
+    "type": "continuation",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "document",
     "named": true,
     "fields": {}

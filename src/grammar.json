@@ -58,6 +58,66 @@
         }
       ]
     },
+    "comment": {
+      "type": "PREC_RIGHT",
+      "value": 0,
+      "content": {
+        "type": "REPEAT1",
+        "content": {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "commentOperator"
+            },
+            {
+              "type": "ALIAS",
+              "content": {
+                "type": "SYMBOL",
+                "name": "token"
+              },
+              "named": false,
+              "value": "comment"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "_endOfLine"
+            }
+          ]
+        }
+      }
+    },
+    "continuation": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "directContinuationOperator"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "spacedContinuationOperator"
+            }
+          ]
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "SYMBOL",
+            "name": "token"
+          },
+          "named": false,
+          "value": "value"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_endOfLine"
+        }
+      ]
+    },
     "element": {
       "type": "SEQ",
       "members": [
@@ -88,35 +148,6 @@
         }
       ]
     },
-    "comment": {
-      "type": "PREC_RIGHT",
-      "value": 0,
-      "content": {
-        "type": "REPEAT1",
-        "content": {
-          "type": "SEQ",
-          "members": [
-            {
-              "type": "SYMBOL",
-              "name": "commentOperator"
-            },
-            {
-              "type": "ALIAS",
-              "content": {
-                "type": "SYMBOL",
-                "name": "token"
-              },
-              "named": false,
-              "value": "comment"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "_endOfLine"
-            }
-          ]
-        }
-      }
-    },
     "entry": {
       "type": "SEQ",
       "members": [
@@ -140,32 +171,111 @@
         {
           "type": "SYMBOL",
           "name": "_endOfLine"
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "REPEAT",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "_commentOrEmpty"
+                }
+              },
+              {
+                "type": "SYMBOL",
+                "name": "continuation"
+              }
+            ]
+          }
         }
       ]
     },
     "field": {
-      "type": "SEQ",
+      "type": "CHOICE",
       "members": [
         {
-          "type": "SYMBOL",
-          "name": "key"
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "key"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "elementOperator"
+            },
+            {
+              "type": "ALIAS",
+              "content": {
+                "type": "SYMBOL",
+                "name": "token"
+              },
+              "named": false,
+              "value": "value"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "_endOfLine"
+            },
+            {
+              "type": "REPEAT",
+              "content": {
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "REPEAT",
+                    "content": {
+                      "type": "SYMBOL",
+                      "name": "_commentOrEmpty"
+                    }
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "continuation"
+                  }
+                ]
+              }
+            }
+          ]
         },
         {
-          "type": "SYMBOL",
-          "name": "elementOperator"
-        },
-        {
-          "type": "ALIAS",
-          "content": {
-            "type": "SYMBOL",
-            "name": "token"
-          },
-          "named": false,
-          "value": "value"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "_endOfLine"
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "key"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "elementOperator"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "_endOfLine"
+            },
+            {
+              "type": "REPEAT1",
+              "content": {
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "REPEAT",
+                    "content": {
+                      "type": "SYMBOL",
+                      "name": "_commentOrEmpty"
+                    }
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "continuation"
+                  }
+                ]
+              }
+            }
+          ]
         }
       ]
     },
@@ -228,6 +338,25 @@
         {
           "type": "SYMBOL",
           "name": "_endOfLine"
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "REPEAT",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "_commentOrEmpty"
+                }
+              },
+              {
+                "type": "SYMBOL",
+                "name": "continuation"
+              }
+            ]
+          }
         }
       ]
     },
@@ -396,8 +525,18 @@
     ],
     [
       "element",
+      "field",
       "fieldset",
       "list"
+    ],
+    [
+      "field"
+    ],
+    [
+      "entry"
+    ],
+    [
+      "item"
     ]
   ],
   "externals": [

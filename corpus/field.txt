@@ -1,5 +1,5 @@
 ===================================
-Single line field
+Field (one with value)
 ===================================
 field: value
 ---
@@ -9,7 +9,51 @@ field: value
 )
 
 ===================================
-Two single line fields
+Field (one with continuation)
+===================================
+field:
+| continuation
+---
+
+(document
+  (field (key) (elementOperator)
+    (continuation (directContinuationOperator) (value))
+  )
+)
+
+===================================
+Field (one with value and continuation)
+===================================
+field: value
+| continuation
+---
+
+(document
+  (field (key) (elementOperator) (value)
+    (continuation (directContinuationOperator) (value))
+  )
+)
+
+===================================
+Field (one with continuations, empty lines and comments)
+===================================
+field:
+> comment
+| continuation
+
+| continuation
+---
+
+(document
+  (field (key) (elementOperator)
+    (comment (commentOperator) (comment))
+    (continuation (directContinuationOperator) (value))
+    (continuation (directContinuationOperator) (value))
+  )
+)
+
+===================================
+Field (multiple with values)
 ===================================
 field: value
 field: value
@@ -21,7 +65,7 @@ field: value
 )
 
 ===================================
-Two single line fields separated by empty line
+Field (multiple with values and empty lines)
 ===================================
 field: value
 
@@ -31,4 +75,26 @@ field: value
 (document
   (field (key) (elementOperator) (value))
   (field (key) (elementOperator) (value))
+)
+
+===================================
+Field (multiple with continuations and comments)
+===================================
+field:
+> comment
+| continuation
+field:
+> comment
+| continuation
+---
+
+(document
+  (field (key) (elementOperator)
+    (comment (commentOperator) (comment))
+    (continuation (directContinuationOperator) (value))
+  )
+  (field (key) (elementOperator)
+    (comment (commentOperator) (comment))
+    (continuation (directContinuationOperator) (value))
+  )
 )

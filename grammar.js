@@ -3,7 +3,10 @@ module.exports = grammar({
 
   conflicts: $ => [
     [$.element, $.fieldset],
-    [$.element, $.fieldset, $.list]
+    [$.element, $.field, $.fieldset, $.list],
+    [$.field],
+    [$.entry],
+    [$.item]
   ],
 
   extras: $ => [
@@ -36,6 +39,22 @@ module.exports = grammar({
       $.section
     ),
 
+    comment: $ => prec.right(
+      repeat1(
+        seq(
+          $.commentOperator,
+          alias($.token, 'comment'),
+          $._endOfLine
+        )
+      )
+    ),
+
+    continuation: $ => seq(
+      choice($.directContinuationOperator, $.spacedContinuationOperator),
+      alias($.token, 'value'),
+      $._endOfLine
+    ),
+
     element: $ => seq(
       $.key,
       $.elementOperator,
@@ -47,28 +66,43 @@ module.exports = grammar({
       $._endOfLine
     ),
 
-    comment: $ => prec.right(
-      repeat1(
-        seq(
-          $.commentOperator,
-          alias($.token, 'comment'),
-          $._endOfLine
-        )
-      )
-    ),
-
     entry: $ => seq(
       $.key,
       $.entryOperator,
       alias($.token, 'value'),
-      $._endOfLine
+      $._endOfLine,
+      repeat(
+        seq(
+          repeat($._commentOrEmpty),
+          $.continuation
+        )
+      )
     ),
 
-    field: $ => seq(
-      $.key,
-      $.elementOperator,
-      alias($.token, 'value'),
-      $._endOfLine
+    field: $ => choice(
+      seq(
+        $.key,
+        $.elementOperator,
+        alias($.token, 'value'),
+        $._endOfLine,
+        repeat(
+          seq(
+            repeat($._commentOrEmpty),
+            $.continuation
+          )
+        )
+      ),
+      seq(
+        $.key,
+        $.elementOperator,
+        $._endOfLine,
+        repeat1(
+          seq(
+            repeat($._commentOrEmpty),
+            $.continuation
+          )
+        )
+      )
     ),
 
     fieldset: $ => seq(
@@ -88,7 +122,13 @@ module.exports = grammar({
     item: $ => seq(
       $.itemOperator,
       alias($.token, 'value'),
-      $._endOfLine
+      $._endOfLine,
+      repeat(
+        seq(
+          repeat($._commentOrEmpty),
+          $.continuation
+        )
+      )
     ),
 
     list: $ => seq(

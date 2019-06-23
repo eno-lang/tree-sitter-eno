@@ -1,5 +1,5 @@
 ===================================
-Fieldset with a single entry
+Fieldset (one entry)
 ===================================
 fieldset:
 entry = value
@@ -12,7 +12,24 @@ entry = value
 )
 
 ===================================
-Fieldset with two entries
+Fieldset (one entry with continuation)
+===================================
+fieldset:
+entry = value
+| continuation
+---
+
+(document
+  (fieldset (key) (elementOperator)
+    (entry
+      (key) (entryOperator) (value)
+      (continuation (directContinuationOperator) (value))
+    )
+  )
+)
+
+===================================
+Fieldset (multiple entries)
 ===================================
 fieldset:
 entry = value
@@ -27,7 +44,30 @@ entry = value
 )
 
 ===================================
-Fieldset with two entries separated by empty lines
+Fieldset (multiple entries with continuations)
+===================================
+fieldset:
+entry = value
+| continuation
+entry = value
+| continuation
+---
+
+(document
+  (fieldset (key) (elementOperator)
+    (entry
+      (key) (entryOperator) (value)
+      (continuation (directContinuationOperator) (value))
+    )
+    (entry
+      (key) (entryOperator) (value)
+      (continuation (directContinuationOperator) (value))
+    )
+  )
+)
+
+===================================
+Fieldset (multiple entries with empty lines)
 ===================================
 fieldset:
 
@@ -44,7 +84,7 @@ entry = value
 )
 
 ===================================
-Fieldset with two entries separated by comments
+Fieldset (multiple entries with comments)
 ===================================
 fieldset:
 > comment
@@ -63,7 +103,7 @@ entry = value
 )
 
 ===================================
-Fieldset with two entries separated by comments and empty lines
+Fieldset (multiple entries with comments and empty lines)
 ===================================
 fieldset:
 
@@ -80,5 +120,34 @@ entry = value
     (entry (key) (entryOperator) (value))
     (comment (commentOperator) (comment))
     (entry (key) (entryOperator) (value))
+  )
+)
+
+===================================
+Fieldset (multiple entries with comments, continuations and empty lines)
+===================================
+fieldset:
+
+entry = value
+
+> comment
+| continuation
+
+> comment
+entry = value
+| continuation
+---
+
+(document
+  (fieldset (key) (elementOperator)
+    (entry (key) (entryOperator) (value)
+      (comment (commentOperator) (comment))
+      (continuation (directContinuationOperator) (value))
+    )
+    (comment (commentOperator) (comment))
+    (entry
+      (key) (entryOperator) (value)
+      (continuation (directContinuationOperator) (value))
+    )
   )
 )
