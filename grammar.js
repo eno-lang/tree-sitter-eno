@@ -23,6 +23,12 @@ module.exports = grammar({
     $._sectionDescend
   ],
 
+  inline: $ => [
+    $._commentOrEmpty,
+    $._elementOrFieldsetOrList,
+    $._instruction
+  ],
+
   rules: {
     document: $ => repeat($._instruction),
 

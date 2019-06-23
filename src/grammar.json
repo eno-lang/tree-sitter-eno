@@ -571,7 +571,11 @@
       "name": "_sectionDescend"
     }
   ],
-  "inline": [],
+  "inline": [
+    "_commentOrEmpty",
+    "_elementOrFieldsetOrList",
+    "_instruction"
+  ],
   "supertypes": []
 }
 
