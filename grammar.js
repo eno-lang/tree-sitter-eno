@@ -22,10 +22,7 @@ module.exports = grammar({
   rules: {
     document: $ => repeat($._instruction),
 
-    _commentOrEmpty: $ => choice(
-      $.comment,
-      $._emptyLine
-    ),
+    _commentOrEmpty: $ => choice($.comment, $._emptyLine),
 
     _emptyLine: $ => /[ \t\uFEFF\u2060\u200B]*\n/,
 
@@ -39,15 +36,11 @@ module.exports = grammar({
       $.section
     ),
 
-    comment: $ => prec.right(
-      repeat1(
-        seq(
-          $.commentOperator,
-          alias($.token, 'comment'),
-          $._endOfLine
-        )
-      )
-    ),
+    comment: $ => prec.right(repeat1(seq(
+      $.commentOperator,
+      alias($.token, 'comment'),
+      $._endOfLine
+    ))),
 
     continuation: $ => seq(
       choice($.directContinuationOperator, $.spacedContinuationOperator),
@@ -71,12 +64,10 @@ module.exports = grammar({
       $.entryOperator,
       alias($.token, 'value'),
       $._endOfLine,
-      repeat(
-        seq(
-          repeat($._commentOrEmpty),
-          $.continuation
-        )
-      )
+      repeat(seq(
+        repeat($._commentOrEmpty),
+        $.continuation
+      ))
     ),
 
     field: $ => choice(
@@ -85,23 +76,19 @@ module.exports = grammar({
         $.elementOperator,
         alias($.token, 'value'),
         $._endOfLine,
-        repeat(
-          seq(
-            repeat($._commentOrEmpty),
-            $.continuation
-          )
-        )
+        repeat(seq(
+          repeat($._commentOrEmpty),
+          $.continuation
+        ))
       ),
       seq(
         $.key,
         $.elementOperator,
         $._endOfLine,
-        repeat1(
-          seq(
-            repeat($._commentOrEmpty),
-            $.continuation
-          )
-        )
+        repeat1(seq(
+          repeat($._commentOrEmpty),
+          $.continuation
+        ))
       )
     ),
 
@@ -109,52 +96,40 @@ module.exports = grammar({
       $.key,
       $.elementOperator,
       $._endOfLine,
-      prec.right(
-        repeat1(
-          seq(
-            repeat($._commentOrEmpty),
-            $.entry
-          )
-        )
-      )
+      prec.right(repeat1(seq(
+        repeat($._commentOrEmpty),
+        $.entry
+      )))
     ),
 
     item: $ => seq(
       $.itemOperator,
       alias($.token, 'value'),
       $._endOfLine,
-      repeat(
-        seq(
-          repeat($._commentOrEmpty),
-          $.continuation
-        )
-      )
+      repeat(seq(
+        repeat($._commentOrEmpty),
+        $.continuation
+      ))
     ),
 
     list: $ => seq(
       $.key,
       $.elementOperator,
       $._endOfLine,
-      prec.right(
-        repeat1(
-          seq(
-            repeat($._commentOrEmpty),
-            $.item
-          )
-        )
-      )
+      prec.right(repeat1(seq(
+        repeat($._commentOrEmpty),
+        $.item
+      )))
     ),
 
     section: $ => seq(
       $._sectionDescend,
       $.sectionOperator,
       $.key,
-      optional(
-        seq(
-          choice($.copyOperator, $.deepCopyOperator),
-          alias($.token, 'template')
-        )
-      ),
+      optional(seq(
+        choice($.copyOperator, $.deepCopyOperator),
+        alias($.token, 'template')
+      )),
       $._endOfLine,
       repeat($._instruction),
       $._sectionAscend
