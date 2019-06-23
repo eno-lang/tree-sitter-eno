@@ -1,5 +1,5 @@
 ===================================
-Single comment line
+Comment
 ===================================
 > commment
 ---
@@ -9,7 +9,7 @@ Single comment line
 )
 
 ===================================
-Two consecutive comment lines
+Comments (consecutive lines)
 ===================================
 > commment
 > commment
@@ -23,7 +23,7 @@ Two consecutive comment lines
 )
 
 ===================================
-Two comment lines separated by empty line
+Comments (with empty lines)
 ===================================
 > commment
 

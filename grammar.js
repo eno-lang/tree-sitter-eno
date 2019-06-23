@@ -2,8 +2,10 @@ module.exports = grammar({
   name: 'eno',
 
   conflicts: $ => [
-    [$.element, $.fieldset],
+    [$._elementOrFieldsetOrList, $.field],
     [$.element, $.field, $.fieldset, $.list],
+    [$.element, $.fieldset],
+    [$.element, $.fieldset, $.list],
     [$.field],
     [$.fieldset],
     [$.entry],
@@ -25,6 +27,15 @@ module.exports = grammar({
     document: $ => repeat($._instruction),
 
     _commentOrEmpty: $ => choice($.comment, $._emptyLine),
+
+    _elementOrFieldsetOrList: $ => seq(
+      $.key,
+      choice(
+        $.elementOperator,
+        seq($.copyOperator, alias($.token, 'template'))
+      ),
+      $._endOfLine
+    ),
 
     _emptyLine: $ => /[ \t\uFEFF\u2060\u200B]*\n/,
 
@@ -50,11 +61,7 @@ module.exports = grammar({
       $._endOfLine
     ),
 
-    element: $ => seq(
-      $.key,
-      $.elementOperator,
-      $._endOfLine
-    ),
+    element: $ => $._elementOrFieldsetOrList,
 
     empty: $ => seq(
       $.key,
@@ -95,9 +102,7 @@ module.exports = grammar({
     ),
 
     fieldset: $ => seq(
-      $.key,
-      $.elementOperator,
-      $._endOfLine,
+      $._elementOrFieldsetOrList,
       repeat1(seq(
         repeat($._commentOrEmpty),
         $.entry
@@ -115,9 +120,7 @@ module.exports = grammar({
     ),
 
     list: $ => seq(
-      $.key,
-      $.elementOperator,
-      $._endOfLine,
+      $._elementOrFieldsetOrList,
       repeat1(seq(
         repeat($._commentOrEmpty),
         $.item

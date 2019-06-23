@@ -1,5 +1,5 @@
 ===================================
-Sections A/AA/B
+Section (A/AA/B)
 ===================================
 # A
 ## AA
@@ -18,7 +18,7 @@ Sections A/AA/B
 )
 
 ===================================
-Sections A/AA/B without spaces
+Section (A/AA/B without spaces)
 ===================================
 #A
 ##AA
@@ -37,7 +37,7 @@ Sections A/AA/B without spaces
 )
 
 ===================================
-Sections A/AA/B<A
+Section (A/AA/B<A)
 ===================================
 # A
 ## AA
@@ -56,7 +56,7 @@ Sections A/AA/B<A
 )
 
 ===================================
-Sections A/AA/B<A without spaces
+Section (A/AA/B<A without spaces)
 ===================================
 #A
 ##AA
@@ -75,7 +75,7 @@ Sections A/AA/B<A without spaces
 )
 
 ===================================
-Sections A/AA/B<<A
+Section (A/AA/B<<A)
 ===================================
 # A
 ## AA
@@ -94,7 +94,7 @@ Sections A/AA/B<<A
 )
 
 ===================================
-Sections A/AA/B<<A without spaces
+Section (A/AA/B<<A without spaces)
 ===================================
 #A
 ##AA

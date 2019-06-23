@@ -1,5 +1,5 @@
 ===================================
-Single empty
+Empty
 ===================================
 empty
 ---
@@ -9,7 +9,7 @@ empty
 )
 
 ===================================
-Two empties
+Empties
 ===================================
 empty
 empty
@@ -21,7 +21,7 @@ empty
 )
 
 ===================================
-Two empties separated by an empty line
+Empties (with empty lines)
 ===================================
 empty
 

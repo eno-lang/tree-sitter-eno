@@ -21,6 +21,46 @@
         }
       ]
     },
+    "_elementOrFieldsetOrList": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "key"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "elementOperator"
+            },
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "copyOperator"
+                },
+                {
+                  "type": "ALIAS",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "token"
+                  },
+                  "named": false,
+                  "value": "template"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_endOfLine"
+        }
+      ]
+    },
     "_emptyLine": {
       "type": "PATTERN",
       "value": "[ \\t\\uFEFF\\u2060\\u200B]*\\n"
@@ -119,21 +159,8 @@
       ]
     },
     "element": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "key"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "elementOperator"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "_endOfLine"
-        }
-      ]
+      "type": "SYMBOL",
+      "name": "_elementOrFieldsetOrList"
     },
     "empty": {
       "type": "SEQ",
@@ -284,15 +311,7 @@
       "members": [
         {
           "type": "SYMBOL",
-          "name": "key"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "elementOperator"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "_endOfLine"
+          "name": "_elementOrFieldsetOrList"
         },
         {
           "type": "REPEAT1",
@@ -361,15 +380,7 @@
       "members": [
         {
           "type": "SYMBOL",
-          "name": "key"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "elementOperator"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "_endOfLine"
+          "name": "_elementOrFieldsetOrList"
         },
         {
           "type": "REPEAT1",
@@ -512,12 +523,21 @@
   ],
   "conflicts": [
     [
+      "_elementOrFieldsetOrList",
+      "field"
+    ],
+    [
+      "element",
+      "field",
+      "fieldset",
+      "list"
+    ],
+    [
       "element",
       "fieldset"
     ],
     [
       "element",
-      "field",
       "fieldset",
       "list"
     ],

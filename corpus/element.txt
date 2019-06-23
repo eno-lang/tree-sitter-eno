@@ -1,5 +1,5 @@
 ===================================
-Single ambiguous element
+Element
 ===================================
 element:
 ---
@@ -9,7 +9,17 @@ element:
 )
 
 ===================================
-Two ambiguous elements
+Element (with template)
+===================================
+element < template
+---
+
+(document
+  (element (key) (copyOperator) (template))
+)
+
+===================================
+Elements
 ===================================
 element:
 element:
@@ -21,7 +31,19 @@ element:
 )
 
 ===================================
-Two ambiguous elements separated by an empty line
+Elements (with templates)
+===================================
+element < template
+element < template
+---
+
+(document
+  (element (key) (copyOperator) (template))
+  (element (key) (copyOperator) (template))
+)
+
+===================================
+Elements (with empty lines)
 ===================================
 element:
 

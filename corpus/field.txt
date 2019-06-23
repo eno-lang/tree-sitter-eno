@@ -1,5 +1,5 @@
 ===================================
-Field (one with value)
+Field (with value)
 ===================================
 field: value
 ---
@@ -9,7 +9,7 @@ field: value
 )
 
 ===================================
-Field (one with continuation)
+Field (with continuation)
 ===================================
 field:
 | continuation
@@ -22,7 +22,7 @@ field:
 )
 
 ===================================
-Field (one with value and continuation)
+Field (with value and continuation)
 ===================================
 field: value
 | continuation
@@ -35,7 +35,7 @@ field: value
 )
 
 ===================================
-Field (one with continuations, empty lines and comments)
+Field (with continuations, empty lines and comments)
 ===================================
 field:
 > comment
@@ -53,7 +53,7 @@ field:
 )
 
 ===================================
-Field (multiple with values)
+Fields (with values)
 ===================================
 field: value
 field: value
@@ -65,7 +65,7 @@ field: value
 )
 
 ===================================
-Field (multiple with values and empty lines)
+Fields (with values and empty lines)
 ===================================
 field: value
 
@@ -78,7 +78,7 @@ field: value
 )
 
 ===================================
-Field (multiple with continuations and comments)
+Fields (with continuations and comments)
 ===================================
 field:
 > comment
