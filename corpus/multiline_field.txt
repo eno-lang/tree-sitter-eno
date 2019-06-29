@@ -1,11 +1,13 @@
 ===================================
 Multiline Field
 ===================================
---
---
+-- field
+-- field
 ---
 
 (document
-  (field (multilineFieldOperator))
-  (field (multilineFieldOperator))
+  (field
+    (multilineFieldOperator) (multilineFieldKey)
+    (multilineFieldOperator) (multilineFieldKey)
+  )
 )

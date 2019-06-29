@@ -22,6 +22,7 @@ module.exports = grammar({
     $._endOfLine,
     $._sectionAscend,
     $._sectionDescend,
+    $.multilineFieldKey,
     $.multilineFieldOperator
   ],
 
@@ -109,6 +110,10 @@ module.exports = grammar({
       ),
       seq(
         $.multilineFieldOperator,
+        $.multilineFieldKey,
+        $._endOfLine,
+        $.multilineFieldOperator,
+        $.multilineFieldKey,
         $._endOfLine
       )
     ),

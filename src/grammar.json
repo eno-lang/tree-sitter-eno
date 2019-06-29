@@ -313,6 +313,22 @@
             },
             {
               "type": "SYMBOL",
+              "name": "multilineFieldKey"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "_endOfLine"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "multilineFieldOperator"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "multilineFieldKey"
+            },
+            {
+              "type": "SYMBOL",
               "name": "_endOfLine"
             }
           ]
@@ -582,6 +598,10 @@
     {
       "type": "SYMBOL",
       "name": "_sectionDescend"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "multilineFieldKey"
     },
     {
       "type": "SYMBOL",

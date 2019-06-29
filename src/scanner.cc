@@ -11,6 +11,7 @@ enum TokenType {
   _END_OF_LINE,
   _SECTION_ASCEND,
   _SECTION_DESCEND,
+  MULTILINE_FIELD_KEY,
   MULTILINE_FIELD_OPERATOR
 };
 
@@ -70,8 +71,28 @@ struct Scanner {
       }
 
       return false;
+    } else if (valid_symbols[MULTILINE_FIELD_KEY]) {
+      // Added because regular whitespace-as-extra detection
+      // somehow didn't work here, possibly to be reinvestigated
+      // at a later point (and refactored if applies).
+      while (lexer->lookahead == ' ' ||
+             lexer->lookahead == '\t' ||
+             lexer->lookahead == '\uFEFF' ||
+             lexer->lookahead == '\u2060' ||
+             lexer->lookahead == '\u200B') {
+        lexer->advance(lexer, true);
+      }
+
+      if (lexer->lookahead != '\n' && lexer->lookahead != 0) {
+          do {
+            lexer->advance(lexer, false);
+          } while (lexer->lookahead != '\n' && lexer->lookahead != 0);
+
+          lexer->result_symbol = MULTILINE_FIELD_KEY;
+          return true;
+      }
     } else if ((valid_symbols[_SECTION_DESCEND] || valid_symbols[_SECTION_ASCEND]) &&
-        lexer->lookahead == '#') {
+               lexer->lookahead == '#') {
       uint16_t new_section_depth = 0;
 
       lexer->mark_end(lexer);
