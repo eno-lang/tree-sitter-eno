@@ -21,6 +21,14 @@ struct Scanner {
     section_depth = 0;
   }
 
+  void advance(TSLexer *lexer) {
+    lexer->advance(lexer, false);
+  }
+
+  void skip(TSLexer *lexer) {
+    lexer->advance(lexer, true);
+  }
+
   unsigned serialize(char *buffer) {
     if (multiline_dashes == 0 && section_depth == 0) {
       return 0;
@@ -47,7 +55,7 @@ struct Scanner {
 
       if (multiline_dashes == 0) {
         do {
-          lexer->advance(lexer, false);
+          advance(lexer);
           new_multiline_dashes++;
         } while (lexer->lookahead == '-');
 
@@ -59,7 +67,7 @@ struct Scanner {
         }
       } else {
         do {
-          lexer->advance(lexer, false);
+          advance(lexer);
           new_multiline_dashes++;
         } while (lexer->lookahead == '-' && new_multiline_dashes <= multiline_dashes);
 
@@ -80,16 +88,16 @@ struct Scanner {
              lexer->lookahead == '\uFEFF' ||
              lexer->lookahead == '\u2060' ||
              lexer->lookahead == '\u200B') {
-        lexer->advance(lexer, true);
+        skip(lexer);
       }
 
       if (lexer->lookahead != '\n' && lexer->lookahead != 0) {
-          do {
-            lexer->advance(lexer, false);
-          } while (lexer->lookahead != '\n' && lexer->lookahead != 0);
+        do {
+          advance(lexer);
+        } while (lexer->lookahead != '\n' && lexer->lookahead != 0);
 
-          lexer->result_symbol = MULTILINE_FIELD_KEY;
-          return true;
+        lexer->result_symbol = MULTILINE_FIELD_KEY;
+        return true;
       }
     } else if ((valid_symbols[_SECTION_DESCEND] || valid_symbols[_SECTION_ASCEND]) &&
                lexer->lookahead == '#') {
@@ -98,7 +106,7 @@ struct Scanner {
       lexer->mark_end(lexer);
 
       do {
-        lexer->advance(lexer, false);
+        advance(lexer);
         new_section_depth++;
       } while (lexer->lookahead == '#');
 
@@ -124,7 +132,7 @@ struct Scanner {
       lexer->result_symbol = _END_OF_LINE;
 
       if (lexer->lookahead == '\n') {
-        lexer->advance(lexer, true);
+        skip(lexer);
       }
 
       return true;
