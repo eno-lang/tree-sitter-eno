@@ -5,7 +5,7 @@
   },
   "devDependencies": {
     "nan": "^2.14.0",
-    "tree-sitter-cli": "^0.15.3"
+    "tree-sitter-cli": "^0.15.7"
   },
   "description": "Tree-sitter parser definition for eno",
   "homepage": "https://github.com/eno-lang/tree-sitter-eno/",
