@@ -9,6 +9,26 @@ Section
 )
 
 ===================================
+Section (key starting with a section operator)
+===================================
+# #
+---
+
+(document
+  (section (sectionOperator) (key))
+)
+
+===================================
+Section (key with characters not allowed in non-section keys)
+===================================
+# >:=-|\#`
+---
+
+(document
+  (section (sectionOperator) (key))
+)
+
+===================================
 Section (with elements and empty lines)
 ===================================
 # section

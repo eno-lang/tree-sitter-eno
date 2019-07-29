@@ -381,6 +381,10 @@
     "named": true
   },
   {
+    "type": "sectionKey",
+    "named": true
+  },
+  {
     "type": "token",
     "named": true
   },

@@ -59,6 +59,15 @@ module.exports = grammar({
       )
     ),
 
+    _escapedOrUnescapedSectionKey: $ => choice(
+      alias($.sectionKey, $.key),
+      seq(
+        $.escapeOperator,
+        alias($.escapedKey, $.key),
+        $.escapeOperator
+      )
+    ),
+
     _instruction: $ => choice(
       $._commentOrEmpty,
       $.element,
@@ -160,7 +169,7 @@ module.exports = grammar({
     section: $ => seq(
       $._sectionDescend,
       $.sectionOperator,
-      $._escapedOrUnescapedKey,  // TODO: Implement distinct, looser section key constraints
+      $._escapedOrUnescapedSectionKey,
       optional(seq(
         choice($.copyOperator, $.deepCopyOperator),
         alias($.token, $.template)
@@ -169,6 +178,8 @@ module.exports = grammar({
       repeat($._instruction),
       $._sectionAscend
     ),
+
+    sectionKey: $ => /[^`<\s]|[^`<\s][^<\n]*[^<\s]/,
 
     token: $ => /\S|\S[^\n]*\S/,
 

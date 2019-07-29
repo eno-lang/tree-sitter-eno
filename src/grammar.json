@@ -96,6 +96,42 @@
         }
       ]
     },
+    "_escapedOrUnescapedSectionKey": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "SYMBOL",
+            "name": "sectionKey"
+          },
+          "named": true,
+          "value": "key"
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "escapeOperator"
+            },
+            {
+              "type": "ALIAS",
+              "content": {
+                "type": "SYMBOL",
+                "name": "escapedKey"
+              },
+              "named": true,
+              "value": "key"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "escapeOperator"
+            }
+          ]
+        }
+      ]
+    },
     "_instruction": {
       "type": "CHOICE",
       "members": [
@@ -128,10 +164,6 @@
           "name": "section"
         }
       ]
-    },
-    "key": {
-      "type": "PATTERN",
-      "value": "[^`>:=<\\-#|\\\\\\s]|[^`>:=<\\-#|\\\\\\s][^>:=<\\-#|\\\\\\n]*[^>:=<\\-#|\\\\\\s]"
     },
     "comment": {
       "type": "PREC_RIGHT",
@@ -439,6 +471,10 @@
         }
       ]
     },
+    "key": {
+      "type": "PATTERN",
+      "value": "[^`>:=<\\-#|\\\\\\s]|[^`>:=<\\-#|\\\\\\s][^:=<\\n]*[^:=<\\s]"
+    },
     "list": {
       "type": "SEQ",
       "members": [
@@ -480,7 +516,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "_escapedOrUnescapedKey"
+          "name": "_escapedOrUnescapedSectionKey"
         },
         {
           "type": "CHOICE",
@@ -533,6 +569,10 @@
           "name": "_sectionAscend"
         }
       ]
+    },
+    "sectionKey": {
+      "type": "PATTERN",
+      "value": "[^`<\\s]|[^`<\\s][^<\\n]*[^<\\s]"
     },
     "token": {
       "type": "PATTERN",
