@@ -9,8 +9,10 @@ namespace {
 // DON'T REORDER (must match the one in grammar.js)
 enum TokenType {
   _END_OF_LINE,
+  _ESCAPED_KEY,
   _SECTION_ASCEND,
   _SECTION_DESCEND,
+  ESCAPE_OPERATOR,
   MULTILINE_FIELD_KEY,
   MULTILINE_FIELD_OPERATOR
 };
@@ -127,6 +129,23 @@ struct Scanner {
         lexer->result_symbol = _SECTION_ASCEND;
         return true;
       }
+    } else if (valid_symbols[ESCAPE_OPERATOR] && lexer->lookahead == '`') {
+      uint16_t new_escape_ticks = 0;
+
+      do {
+        advance(lexer);
+        new_escape_ticks++;
+      } while (lexer->lookahead == '`');
+
+      lexer->result_symbol = ESCAPE_OPERATOR;
+      return true;
+    } else if (valid_symbols[_ESCAPED_KEY] && lexer->lookahead != '`') {
+      do {
+        advance(lexer);
+      } while (lexer->lookahead != '`');
+
+      lexer->result_symbol = _ESCAPED_KEY;
+      return true;
     } else if (valid_symbols[_END_OF_LINE] &&
                (lexer->lookahead == '\n' || lexer->lookahead == 0)) {
       lexer->result_symbol = _END_OF_LINE;

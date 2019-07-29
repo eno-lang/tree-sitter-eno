@@ -20,8 +20,10 @@ module.exports = grammar({
   // DON'T REORDER (must match the one in scanner.cc)
   externals: $ => [
     $._endOfLine,
+    $.escapedKey,
     $._sectionAscend,
     $._sectionDescend,
+    $.escapeOperator,
     $.multilineFieldKey,
     $.multilineFieldOperator
   ],
@@ -38,7 +40,7 @@ module.exports = grammar({
     _commentOrEmpty: $ => choice($.comment, $._emptyLine),
 
     _elementOrFieldsetOrList: $ => seq(
-      $.key,
+      $._escapedOrUnescapedKey,
       choice(
         $.elementOperator,
         seq($.copyOperator, alias($.token, 'template'))
@@ -47,6 +49,15 @@ module.exports = grammar({
     ),
 
     _emptyLine: $ => /[ \t\uFEFF\u2060\u200B]*\n/,
+
+    _escapedOrUnescapedKey: $ => choice(
+      $.key,
+      seq(
+        $.escapeOperator,
+        alias($.escapedKey, 'key'),
+        $.escapeOperator
+      )
+    ),
 
     _instruction: $ => choice(
       $._commentOrEmpty,
@@ -57,6 +68,8 @@ module.exports = grammar({
       $.list,
       $.section
     ),
+
+    key: $ => /[^`>:=<\-#|\\\s]|[^`>:=<\-#|\\\s][^>:=<\-#|\\\n]*[^>:=<\-#|\\\s]/,
 
     comment: $ => prec.right(repeat1(seq(
       $.commentOperator,
@@ -73,12 +86,12 @@ module.exports = grammar({
     element: $ => $._elementOrFieldsetOrList,
 
     empty: $ => seq(
-      $.key,
+      $._escapedOrUnescapedKey,
       $._endOfLine
     ),
 
     entry: $ => seq(
-      $.key,
+      $._escapedOrUnescapedKey,
       $.entryOperator,
       alias($.token, 'value'),
       $._endOfLine,
@@ -90,7 +103,7 @@ module.exports = grammar({
 
     field: $ => choice(
       seq(
-        $.key,
+        $._escapedOrUnescapedKey,
         $.elementOperator,
         alias($.token, 'value'),
         $._endOfLine,
@@ -100,7 +113,7 @@ module.exports = grammar({
         ))
       ),
       seq(
-        $.key,
+        $._escapedOrUnescapedKey,
         $.elementOperator,
         $._endOfLine,
         repeat1(seq(
@@ -147,7 +160,7 @@ module.exports = grammar({
     section: $ => seq(
       $._sectionDescend,
       $.sectionOperator,
-      $.key,
+      $._escapedOrUnescapedKey,  // TODO: Implement distinct, looser section key constraints
       optional(seq(
         choice($.copyOperator, $.deepCopyOperator),
         alias($.token, 'template')
@@ -157,7 +170,6 @@ module.exports = grammar({
       $._sectionAscend
     ),
 
-    key: $ => /[^>:=<\-#|\\\s]|[^>:=<\-#|\\\s][^>:=<\-#|\\\n]*[^>:=<\-#|\\\s]/,
     token: $ => /\S|\S[^\n]*\S/,
 
     directContinuationOperator: $ => '|',

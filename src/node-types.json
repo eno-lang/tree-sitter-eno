@@ -2,57 +2,371 @@
   {
     "type": "comment",
     "named": true,
-    "fields": {}
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "commentOperator",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "continuation",
     "named": true,
-    "fields": {}
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "directContinuationOperator",
+          "named": true
+        },
+        {
+          "type": "spacedContinuationOperator",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "document",
     "named": true,
-    "fields": {}
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "comment",
+          "named": true
+        },
+        {
+          "type": "element",
+          "named": true
+        },
+        {
+          "type": "empty",
+          "named": true
+        },
+        {
+          "type": "field",
+          "named": true
+        },
+        {
+          "type": "fieldset",
+          "named": true
+        },
+        {
+          "type": "list",
+          "named": true
+        },
+        {
+          "type": "section",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "element",
     "named": true,
-    "fields": {}
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "copyOperator",
+          "named": true
+        },
+        {
+          "type": "elementOperator",
+          "named": true
+        },
+        {
+          "type": "escapeOperator",
+          "named": true
+        },
+        {
+          "type": "key",
+          "named": false
+        },
+        {
+          "type": "key",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "empty",
     "named": true,
-    "fields": {}
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "escapeOperator",
+          "named": true
+        },
+        {
+          "type": "key",
+          "named": false
+        },
+        {
+          "type": "key",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "entry",
     "named": true,
-    "fields": {}
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "comment",
+          "named": true
+        },
+        {
+          "type": "continuation",
+          "named": true
+        },
+        {
+          "type": "entryOperator",
+          "named": true
+        },
+        {
+          "type": "escapeOperator",
+          "named": true
+        },
+        {
+          "type": "key",
+          "named": false
+        },
+        {
+          "type": "key",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "field",
     "named": true,
-    "fields": {}
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "comment",
+          "named": true
+        },
+        {
+          "type": "continuation",
+          "named": true
+        },
+        {
+          "type": "elementOperator",
+          "named": true
+        },
+        {
+          "type": "escapeOperator",
+          "named": true
+        },
+        {
+          "type": "key",
+          "named": false
+        },
+        {
+          "type": "key",
+          "named": true
+        },
+        {
+          "type": "multilineFieldKey",
+          "named": true
+        },
+        {
+          "type": "multilineFieldOperator",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "fieldset",
     "named": true,
-    "fields": {}
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "comment",
+          "named": true
+        },
+        {
+          "type": "copyOperator",
+          "named": true
+        },
+        {
+          "type": "elementOperator",
+          "named": true
+        },
+        {
+          "type": "entry",
+          "named": true
+        },
+        {
+          "type": "escapeOperator",
+          "named": true
+        },
+        {
+          "type": "key",
+          "named": false
+        },
+        {
+          "type": "key",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "item",
     "named": true,
-    "fields": {}
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "comment",
+          "named": true
+        },
+        {
+          "type": "continuation",
+          "named": true
+        },
+        {
+          "type": "itemOperator",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "list",
     "named": true,
-    "fields": {}
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "comment",
+          "named": true
+        },
+        {
+          "type": "copyOperator",
+          "named": true
+        },
+        {
+          "type": "elementOperator",
+          "named": true
+        },
+        {
+          "type": "escapeOperator",
+          "named": true
+        },
+        {
+          "type": "item",
+          "named": true
+        },
+        {
+          "type": "key",
+          "named": false
+        },
+        {
+          "type": "key",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "section",
     "named": true,
-    "fields": {}
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "comment",
+          "named": true
+        },
+        {
+          "type": "copyOperator",
+          "named": true
+        },
+        {
+          "type": "deepCopyOperator",
+          "named": true
+        },
+        {
+          "type": "element",
+          "named": true
+        },
+        {
+          "type": "empty",
+          "named": true
+        },
+        {
+          "type": "escapeOperator",
+          "named": true
+        },
+        {
+          "type": "field",
+          "named": true
+        },
+        {
+          "type": "fieldset",
+          "named": true
+        },
+        {
+          "type": "key",
+          "named": false
+        },
+        {
+          "type": "key",
+          "named": true
+        },
+        {
+          "type": "list",
+          "named": true
+        },
+        {
+          "type": "section",
+          "named": true
+        },
+        {
+          "type": "sectionOperator",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "key",
