@@ -1,4 +1,14 @@
 ===================================
+Field (escaped key)
+===================================
+`field`: value
+---
+
+(document
+  (field (escapeOperator) (key) (escapeOperator) (elementOperator) (value))
+)
+
+===================================
 Field (with value)
 ===================================
 field: value

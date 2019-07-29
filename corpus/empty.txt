@@ -9,6 +9,16 @@ empty
 )
 
 ===================================
+Empty (escaped key)
+===================================
+`empty`
+---
+
+(document
+  (empty (escapeOperator) (key) (escapeOperator))
+)
+
+===================================
 Empties
 ===================================
 empty
