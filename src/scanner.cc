@@ -1,3 +1,4 @@
+#include <string>
 #include <tree_sitter/parser.h>
 
 // Serialization buffer indices
@@ -6,6 +7,8 @@
 #define SECTION_DEPTH_INDEX 2
 
 namespace {
+
+using std::string;
 
 // DON'T REORDER (must match the one in grammar.js)
 enum TokenType {
@@ -42,7 +45,15 @@ struct Scanner {
     buffer[MULTILINE_DASHES_INDEX] = multiline_dashes;
     buffer[SECTION_DEPTH_INDEX] = section_depth;
 
-    return 3;
+    if (multiline_key.empty()) {
+      return 3;
+    }
+
+    if (3 + multiline_key.size() >= TREE_SITTER_SERIALIZATION_BUFFER_SIZE) return 0;
+
+    multiline_key.copy(&buffer[3], multiline_key.size());
+
+    return 3 + multiline_key.size();
   }
 
   void deserialize(const char *buffer, unsigned length) {
@@ -50,6 +61,10 @@ struct Scanner {
       escape_ticks = buffer[ESCAPE_TICKS_INDEX];
       multiline_dashes = buffer[MULTILINE_DASHES_INDEX];
       section_depth = buffer[SECTION_DEPTH_INDEX];
+
+      if (length > 3) {
+        multiline_key.assign(buffer + 3, buffer + length);
+      }
     }
   }
 
@@ -85,7 +100,9 @@ struct Scanner {
       }
 
       return false;
-    } else if (valid_symbols[MULTILINE_FIELD_KEY]) {
+    } else if (valid_symbols[MULTILINE_FIELD_KEY] && multiline_dashes > 0) {  // TODO: '&& multiline_dashes > 0' cuts off dozens of invalid attempts here, investigate why they happen at all
+      bool key_just_read = multiline_key.empty();
+
       // Added because regular whitespace-as-extra detection
       // somehow didn't work here, possibly to be reinvestigated
       // at a later point (and refactored if applies).
@@ -99,8 +116,14 @@ struct Scanner {
 
       if (lexer->lookahead != '\n' && lexer->lookahead != 0) {
         do {
+          multiline_key += lexer->lookahead;
           advance(lexer);
         } while (lexer->lookahead != '\n' && lexer->lookahead != 0);
+
+        if (!key_just_read) {
+          multiline_dashes = 0;
+          multiline_key.clear();
+        }
 
         lexer->result_symbol = MULTILINE_FIELD_KEY;
         return true;
@@ -190,6 +213,7 @@ struct Scanner {
   uint16_t escape_ticks;
   uint16_t multiline_dashes;
   uint16_t section_depth;
+  string multiline_key;
 };
 
 }
