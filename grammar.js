@@ -43,7 +43,7 @@ module.exports = grammar({
       $._escapedOrUnescapedKey,
       choice(
         $.elementOperator,
-        seq($.copyOperator, alias($.token, 'template'))
+        seq($.copyOperator, alias($.token, $.template))
       ),
       $._endOfLine
     ),
@@ -54,7 +54,7 @@ module.exports = grammar({
       $.key,
       seq(
         $.escapeOperator,
-        alias($.escapedKey, 'key'),
+        alias($.escapedKey, $.key),
         $.escapeOperator
       )
     ),
@@ -73,13 +73,13 @@ module.exports = grammar({
 
     comment: $ => prec.right(repeat1(seq(
       $.commentOperator,
-      alias($.token, 'comment'),
+      alias($.token, $.comment),
       $._endOfLine
     ))),
 
     continuation: $ => seq(
       choice($.directContinuationOperator, $.spacedContinuationOperator),
-      alias($.token, 'value'),
+      alias($.token, $.value),
       $._endOfLine
     ),
 
@@ -93,7 +93,7 @@ module.exports = grammar({
     entry: $ => seq(
       $._escapedOrUnescapedKey,
       $.entryOperator,
-      alias($.token, 'value'),
+      alias($.token, $.value),
       $._endOfLine,
       repeat(seq(
         repeat($._commentOrEmpty),
@@ -105,7 +105,7 @@ module.exports = grammar({
       seq(
         $._escapedOrUnescapedKey,
         $.elementOperator,
-        alias($.token, 'value'),
+        alias($.token, $.value),
         $._endOfLine,
         repeat(seq(
           repeat($._commentOrEmpty),
@@ -141,7 +141,7 @@ module.exports = grammar({
 
     item: $ => seq(
       $.itemOperator,
-      alias($.token, 'value'),
+      alias($.token, $.value),
       $._endOfLine,
       repeat(seq(
         repeat($._commentOrEmpty),
@@ -163,7 +163,7 @@ module.exports = grammar({
       $._escapedOrUnescapedKey,  // TODO: Implement distinct, looser section key constraints
       optional(seq(
         choice($.copyOperator, $.deepCopyOperator),
-        alias($.token, 'template')
+        alias($.token, $.template)
       )),
       $._endOfLine,
       repeat($._instruction),

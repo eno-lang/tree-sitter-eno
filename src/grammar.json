@@ -48,7 +48,7 @@
                     "type": "SYMBOL",
                     "name": "token"
                   },
-                  "named": false,
+                  "named": true,
                   "value": "template"
                 }
               ]
@@ -85,7 +85,7 @@
                 "type": "SYMBOL",
                 "name": "escapedKey"
               },
-              "named": false,
+              "named": true,
               "value": "key"
             },
             {
@@ -151,7 +151,7 @@
                 "type": "SYMBOL",
                 "name": "token"
               },
-              "named": false,
+              "named": true,
               "value": "comment"
             },
             {
@@ -184,7 +184,7 @@
             "type": "SYMBOL",
             "name": "token"
           },
-          "named": false,
+          "named": true,
           "value": "value"
         },
         {
@@ -227,7 +227,7 @@
             "type": "SYMBOL",
             "name": "token"
           },
-          "named": false,
+          "named": true,
           "value": "value"
         },
         {
@@ -275,7 +275,7 @@
                 "type": "SYMBOL",
                 "name": "token"
               },
-              "named": false,
+              "named": true,
               "value": "value"
             },
             {
@@ -411,7 +411,7 @@
             "type": "SYMBOL",
             "name": "token"
           },
-          "named": false,
+          "named": true,
           "value": "value"
         },
         {
@@ -507,7 +507,7 @@
                     "type": "SYMBOL",
                     "name": "token"
                   },
-                  "named": false,
+                  "named": true,
                   "value": "template"
                 }
               ]

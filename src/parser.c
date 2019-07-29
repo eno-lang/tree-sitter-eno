@@ -8,7 +8,7 @@
 #define LANGUAGE_VERSION 10
 #define STATE_COUNT 148
 #define SYMBOL_COUNT 38
-#define ALIAS_COUNT 3
+#define ALIAS_COUNT 2
 #define TOKEN_COUNT 20
 #define EXTERNAL_TOKEN_COUNT 7
 #define FIELD_COUNT 0
@@ -52,9 +52,8 @@ enum {
   aux_sym_entry_repeat2 = 35,
   aux_sym_fieldset_repeat1 = 36,
   aux_sym_list_repeat1 = 37,
-  anon_alias_sym_template = 38,
-  anon_alias_sym_comment = 39,
-  anon_alias_sym_value = 40,
+  alias_sym_template = 38,
+  alias_sym_value = 39,
 };
 
 static const char *ts_symbol_names[] = {
@@ -96,9 +95,8 @@ static const char *ts_symbol_names[] = {
   [aux_sym_entry_repeat2] = "entry_repeat2",
   [aux_sym_fieldset_repeat1] = "fieldset_repeat1",
   [aux_sym_list_repeat1] = "list_repeat1",
-  [anon_alias_sym_template] = "template",
-  [anon_alias_sym_comment] = "comment",
-  [anon_alias_sym_value] = "value",
+  [alias_sym_template] = "template",
+  [alias_sym_value] = "value",
 };
 
 static const TSSymbolMetadata ts_symbol_metadata[] = {
@@ -160,7 +158,7 @@ static const TSSymbolMetadata ts_symbol_metadata[] = {
   },
   [sym_escapedKey] = {
     .visible = true,
-    .named = false,
+    .named = true,
   },
   [sym__sectionAscend] = {
     .visible = false,
@@ -254,35 +252,31 @@ static const TSSymbolMetadata ts_symbol_metadata[] = {
     .visible = false,
     .named = false,
   },
-  [anon_alias_sym_template] = {
+  [alias_sym_template] = {
     .visible = true,
-    .named = false,
+    .named = true,
   },
-  [anon_alias_sym_comment] = {
+  [alias_sym_value] = {
     .visible = true,
-    .named = false,
-  },
-  [anon_alias_sym_value] = {
-    .visible = true,
-    .named = false,
+    .named = true,
   },
 };
 
 static TSSymbol ts_alias_sequences[6][MAX_ALIAS_SEQUENCE_LENGTH] = {
   [1] = {
-    [1] = anon_alias_sym_comment,
+    [1] = sym_comment,
   },
   [2] = {
-    [2] = anon_alias_sym_value,
+    [2] = alias_sym_value,
   },
   [3] = {
-    [2] = anon_alias_sym_template,
+    [2] = alias_sym_template,
   },
   [4] = {
-    [1] = anon_alias_sym_value,
+    [1] = alias_sym_value,
   },
   [5] = {
-    [4] = anon_alias_sym_template,
+    [4] = alias_sym_template,
   },
 };
 

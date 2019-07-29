@@ -8,6 +8,10 @@
       "required": false,
       "types": [
         {
+          "type": "comment",
+          "named": true
+        },
+        {
           "type": "commentOperator",
           "named": true
         }
@@ -28,6 +32,10 @@
         },
         {
           "type": "spacedContinuationOperator",
+          "named": true
+        },
+        {
+          "type": "value",
           "named": true
         }
       ]
@@ -94,10 +102,10 @@
         },
         {
           "type": "key",
-          "named": false
+          "named": true
         },
         {
-          "type": "key",
+          "type": "template",
           "named": true
         }
       ]
@@ -114,10 +122,6 @@
         {
           "type": "escapeOperator",
           "named": true
-        },
-        {
-          "type": "key",
-          "named": false
         },
         {
           "type": "key",
@@ -152,10 +156,10 @@
         },
         {
           "type": "key",
-          "named": false
+          "named": true
         },
         {
-          "type": "key",
+          "type": "value",
           "named": true
         }
       ]
@@ -187,10 +191,6 @@
         },
         {
           "type": "key",
-          "named": false
-        },
-        {
-          "type": "key",
           "named": true
         },
         {
@@ -199,6 +199,10 @@
         },
         {
           "type": "multilineFieldOperator",
+          "named": true
+        },
+        {
+          "type": "value",
           "named": true
         }
       ]
@@ -234,10 +238,10 @@
         },
         {
           "type": "key",
-          "named": false
+          "named": true
         },
         {
-          "type": "key",
+          "type": "template",
           "named": true
         }
       ]
@@ -261,6 +265,10 @@
         },
         {
           "type": "itemOperator",
+          "named": true
+        },
+        {
+          "type": "value",
           "named": true
         }
       ]
@@ -296,10 +304,10 @@
         },
         {
           "type": "key",
-          "named": false
+          "named": true
         },
         {
-          "type": "key",
+          "type": "template",
           "named": true
         }
       ]
@@ -347,10 +355,6 @@
         },
         {
           "type": "key",
-          "named": false
-        },
-        {
-          "type": "key",
           "named": true
         },
         {
@@ -363,6 +367,10 @@
         },
         {
           "type": "sectionOperator",
+          "named": true
+        },
+        {
+          "type": "template",
           "named": true
         }
       ]
