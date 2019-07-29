@@ -1,4 +1,14 @@
 ===================================
+Field (key with characters not allowed in first position)
+===================================
+f>#-|\: value
+---
+
+(document
+  (field (key) (elementOperator) (value))
+)
+
+===================================
 Field (escaped key)
 ===================================
 `field`: value

@@ -69,8 +69,6 @@ module.exports = grammar({
       $.section
     ),
 
-    key: $ => /[^`>:=<\-#|\\\s]|[^`>:=<\-#|\\\s][^>:=<\-#|\\\n]*[^>:=<\-#|\\\s]/,
-
     comment: $ => prec.right(repeat1(seq(
       $.commentOperator,
       alias($.token, $.comment),
@@ -148,6 +146,8 @@ module.exports = grammar({
         $.continuation
       ))
     ),
+
+    key: $ => /[^`>:=<\-#|\\\s]|[^`>:=<\-#|\\\s][^:=<\n]*[^:=<\s]/,
 
     list: $ => seq(
       $._elementOrFieldsetOrList,
