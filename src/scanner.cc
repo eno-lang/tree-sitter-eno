@@ -1,8 +1,9 @@
 #include <tree_sitter/parser.h>
 
 // Serialization buffer indices
-#define SECTION_DEPTH_INDEX 0
+#define ESCAPE_TICKS_INDEX 0
 #define MULTILINE_DASHES_INDEX 1
+#define SECTION_DEPTH_INDEX 2
 
 namespace {
 
@@ -19,6 +20,7 @@ enum TokenType {
 
 struct Scanner {
   Scanner() {
+    escape_ticks = 0;
     multiline_dashes = 0;
     section_depth = 0;
   }
@@ -32,20 +34,22 @@ struct Scanner {
   }
 
   unsigned serialize(char *buffer) {
-    if (multiline_dashes == 0 && section_depth == 0) {
+    if (section_depth == 0 && multiline_dashes == 0 && escape_ticks == 0) {
       return 0;
     }
 
-    buffer[SECTION_DEPTH_INDEX] = section_depth;
+    buffer[ESCAPE_TICKS_INDEX] = escape_ticks;
     buffer[MULTILINE_DASHES_INDEX] = multiline_dashes;
+    buffer[SECTION_DEPTH_INDEX] = section_depth;
 
-    return 2;
+    return 3;
   }
 
   void deserialize(const char *buffer, unsigned length) {
     if (length > 0) {
-      section_depth = buffer[SECTION_DEPTH_INDEX];
+      escape_ticks = buffer[ESCAPE_TICKS_INDEX];
       multiline_dashes = buffer[MULTILINE_DASHES_INDEX];
+      section_depth = buffer[SECTION_DEPTH_INDEX];
     }
   }
 
@@ -130,19 +134,42 @@ struct Scanner {
         return true;
       }
     } else if (valid_symbols[ESCAPE_OPERATOR] && lexer->lookahead == '`') {
+      if(escape_ticks > 0) {
+        do {
+          advance(lexer);
+          escape_ticks--;
+        } while (lexer->lookahead == '`');
+
+        if(escape_ticks != 0) {
+          return false;  // likely never reached because _ESCAPED_KEY would not succeed beforehand
+        }
+      } else {
+        do {
+          advance(lexer);
+          escape_ticks++;
+        } while (lexer->lookahead == '`');
+      }
+
+      lexer->result_symbol = ESCAPE_OPERATOR;
+      return true;
+    } else if (valid_symbols[_ESCAPED_KEY] && lexer->lookahead != '\n') {
       uint16_t new_escape_ticks = 0;
 
       do {
         advance(lexer);
-        new_escape_ticks++;
-      } while (lexer->lookahead == '`');
 
-      lexer->result_symbol = ESCAPE_OPERATOR;
-      return true;
-    } else if (valid_symbols[_ESCAPED_KEY] && lexer->lookahead != '`') {
-      do {
-        advance(lexer);
-      } while (lexer->lookahead != '`');
+        if (lexer->lookahead == '`') {
+          if(new_escape_ticks == 0) {
+            lexer->mark_end(lexer);
+          }
+
+          new_escape_ticks++;
+        } else if (lexer->lookahead == '\n' || lexer->lookahead == 0) {
+          return false;
+        } else {
+          new_escape_ticks = 0;
+        }
+      } while (new_escape_ticks < escape_ticks);
 
       lexer->result_symbol = _ESCAPED_KEY;
       return true;
@@ -160,6 +187,7 @@ struct Scanner {
     return false;
   }
 
+  uint16_t escape_ticks;
   uint16_t multiline_dashes;
   uint16_t section_depth;
 };
