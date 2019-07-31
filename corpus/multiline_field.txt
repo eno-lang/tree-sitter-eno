@@ -11,3 +11,45 @@ Multiline Field
     (multilineFieldOperator) (multilineFieldKey)
   )
 )
+
+===================================
+Multiline Field (dash-only key)
+===================================
+-- -
+-- -
+---
+
+(document
+  (field
+    (multilineFieldOperator) (multilineFieldKey)
+    (multilineFieldOperator) (multilineFieldKey)
+  )
+)
+
+===================================
+Multiline Field (malicious key attack)
+===================================
+-- field -- field
+-- field -- field
+---
+
+(document
+  (field
+    (multilineFieldOperator) (multilineFieldKey)
+    (multilineFieldOperator) (multilineFieldKey)
+  )
+)
+
+===================================
+Multiline Field (long operator)
+===================================
+-------------------------- field
+-------------------------- field
+---
+
+(document
+  (field
+    (multilineFieldOperator) (multilineFieldKey)
+    (multilineFieldOperator) (multilineFieldKey)
+  )
+)
