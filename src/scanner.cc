@@ -13,9 +13,9 @@ using std::string;
 // DON'T REORDER (must match the one in grammar.js)
 enum TokenType {
   _END_OF_LINE,
-  _ESCAPED_KEY,
   _SECTION_ASCEND,
   _SECTION_DESCEND,
+  ESCAPED_KEY,
   ESCAPE_OPERATOR,
   MULTILINE_FIELD_KEY,
   MULTILINE_FIELD_OPERATOR
@@ -164,7 +164,7 @@ struct Scanner {
         } while (lexer->lookahead == '`');
 
         if(escape_ticks != 0) {
-          return false;  // likely never reached because _ESCAPED_KEY would not succeed beforehand
+          return false;  // likely never reached because ESCAPED_KEY would not succeed beforehand
         }
       } else {
         do {
@@ -175,7 +175,7 @@ struct Scanner {
 
       lexer->result_symbol = ESCAPE_OPERATOR;
       return true;
-    } else if (valid_symbols[_ESCAPED_KEY] && lexer->lookahead != '\n') {
+    } else if (valid_symbols[ESCAPED_KEY] && lexer->lookahead != '\n') {
       uint16_t new_escape_ticks = 0;
 
       do {
@@ -194,7 +194,7 @@ struct Scanner {
         }
       } while (new_escape_ticks < escape_ticks);
 
-      lexer->result_symbol = _ESCAPED_KEY;
+      lexer->result_symbol = ESCAPED_KEY;
       return true;
     } else if (valid_symbols[_END_OF_LINE] &&
                (lexer->lookahead == '\n' || lexer->lookahead == 0)) {
