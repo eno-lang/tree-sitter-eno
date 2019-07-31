@@ -20,6 +20,7 @@ module.exports = grammar({
   // DON'T REORDER (must match the one in scanner.cc)
   externals: $ => [
     $._endOfLine,
+    $._multilineFieldEnd,
     $._sectionAscend,
     $._sectionDescend,
     $.escapedKey,
@@ -132,6 +133,7 @@ module.exports = grammar({
         $.multilineFieldOperator,
         $.multilineFieldKey,
         $._endOfLine,
+        $._multilineFieldEnd,
         $.multilineFieldOperator,
         $.multilineFieldKey,
         $._endOfLine

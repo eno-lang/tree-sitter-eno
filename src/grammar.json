@@ -388,6 +388,10 @@
             },
             {
               "type": "SYMBOL",
+              "name": "_multilineFieldEnd"
+            },
+            {
+              "type": "SYMBOL",
               "name": "multilineFieldOperator"
             },
             {
@@ -664,7 +668,7 @@
     },
     {
       "type": "SYMBOL",
-      "name": "escapedKey"
+      "name": "_multilineFieldEnd"
     },
     {
       "type": "SYMBOL",
@@ -673,6 +677,10 @@
     {
       "type": "SYMBOL",
       "name": "_sectionDescend"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "escapedKey"
     },
     {
       "type": "SYMBOL",

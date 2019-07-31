@@ -13,6 +13,7 @@ using std::string;
 // DON'T REORDER (must match the one in grammar.js)
 enum TokenType {
   _END_OF_LINE,
+  _MULTILINE_FIELD_END,
   _SECTION_ASCEND,
   _SECTION_DESCEND,
   ESCAPED_KEY,
@@ -79,34 +80,64 @@ struct Scanner {
   }
 
   bool scan(TSLexer *lexer, const bool *valid_symbols) {
-    if (valid_symbols[MULTILINE_FIELD_OPERATOR] && lexer->lookahead == '-') {
+    if (valid_symbols[_MULTILINE_FIELD_END] && lexer->lookahead == '-') {
+      // TODO: lexer->mark_end(lexer); and return fully consumed line as MULTLINE_FIELD_VALUE
+
+      lexer->mark_end(lexer);
+
+      uint16_t new_multiline_dashes = 0;
+
+      do {
+        advance(lexer);
+        new_multiline_dashes++;
+      } while (lexer->lookahead == '-');
+
+      if (new_multiline_dashes != multiline_dashes) {
+        return false;
+      }
+
+      skip_horizontal_whitespace(lexer);
+
+      for (char& iterated_character : multiline_key) {
+        if (lexer->lookahead != iterated_character) {
+          return false;
+        }
+
+        advance(lexer);
+      }
+
+      skip_horizontal_whitespace(lexer);
+
+      if (lexer->lookahead != '\n' && lexer->lookahead != 0) {
+        return false;
+      }
+
+      lexer->result_symbol = _MULTILINE_FIELD_END;
+      return true;
+    } else if (valid_symbols[MULTILINE_FIELD_OPERATOR] && lexer->lookahead == '-') {
+      if (multiline_dashes > 0) {
+        do {
+          advance(lexer);
+        } while (lexer->lookahead == '-');
+
+        lexer->result_symbol = MULTILINE_FIELD_OPERATOR;
+        return true;
+      }
+
       uint16_t new_multiline_dashes = 0;
 
       lexer->mark_end(lexer);
 
-      if (multiline_dashes == 0) {
-        do {
-          advance(lexer);
-          new_multiline_dashes++;
-        } while (lexer->lookahead == '-');
+      do {
+        advance(lexer);
+        new_multiline_dashes++;
+      } while (lexer->lookahead == '-');
 
-        if(new_multiline_dashes >= 2) {
-          multiline_dashes = new_multiline_dashes;
-          lexer->mark_end(lexer);
-          lexer->result_symbol = MULTILINE_FIELD_OPERATOR;
-          return true;
-        }
-      } else {
-        do {
-          advance(lexer);
-          new_multiline_dashes++;
-        } while (lexer->lookahead == '-' && new_multiline_dashes <= multiline_dashes);
-
-        if(new_multiline_dashes == multiline_dashes) {
-          lexer->mark_end(lexer);
-          lexer->result_symbol = MULTILINE_FIELD_OPERATOR;
-          return true;
-        }
+      if(new_multiline_dashes >= 2) {
+        multiline_dashes = new_multiline_dashes;
+        lexer->mark_end(lexer);
+        lexer->result_symbol = MULTILINE_FIELD_OPERATOR;
+        return true;
       }
 
       return false;
