@@ -68,6 +68,16 @@ struct Scanner {
     }
   }
 
+  inline void skip_horizontal_whitespace(TSLexer *lexer) {
+    while (lexer->lookahead == ' ' ||
+           lexer->lookahead == '\t' ||
+           lexer->lookahead == '\uFEFF' ||
+           lexer->lookahead == '\u2060' ||
+           lexer->lookahead == '\u200B') {
+      skip(lexer);
+    }
+  }
+
   bool scan(TSLexer *lexer, const bool *valid_symbols) {
     if (valid_symbols[MULTILINE_FIELD_OPERATOR] && lexer->lookahead == '-') {
       uint16_t new_multiline_dashes = 0;
@@ -106,13 +116,7 @@ struct Scanner {
       // Added because regular whitespace-as-extra detection
       // somehow didn't work here, possibly to be reinvestigated
       // at a later point (and refactored if applies).
-      while (lexer->lookahead == ' ' ||
-             lexer->lookahead == '\t' ||
-             lexer->lookahead == '\uFEFF' ||
-             lexer->lookahead == '\u2060' ||
-             lexer->lookahead == '\u200B') {
-        skip(lexer);
-      }
+      skip_horizontal_whitespace(lexer);
 
       if (lexer->lookahead != '\n' && lexer->lookahead != 0) {
         do {
