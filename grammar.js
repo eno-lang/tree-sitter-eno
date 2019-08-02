@@ -131,11 +131,11 @@ module.exports = grammar({
       ),
       seq(
         $.multilineFieldOperator,
-        $.multilineFieldKey,
+        alias($.multilineFieldKey, $.key),
         $._endOfLine,
         $._multilineFieldEnd,
         $.multilineFieldOperator,
-        $.multilineFieldKey,
+        alias($.multilineFieldKey, $.key),
         $._endOfLine
       )
     ),

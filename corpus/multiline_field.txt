@@ -7,8 +7,8 @@ Multiline Field
 
 (document
   (field
-    (multilineFieldOperator) (multilineFieldKey)
-    (multilineFieldOperator) (multilineFieldKey)
+    (multilineFieldOperator) (key)
+    (multilineFieldOperator) (key)
   )
 )
 
@@ -21,8 +21,8 @@ Multiline Field (dash-only key)
 
 (document
   (field
-    (multilineFieldOperator) (multilineFieldKey)
-    (multilineFieldOperator) (multilineFieldKey)
+    (multilineFieldOperator) (key)
+    (multilineFieldOperator) (key)
   )
 )
 
@@ -35,8 +35,8 @@ Multiline Field (malicious key attack)
 
 (document
   (field
-    (multilineFieldOperator) (multilineFieldKey)
-    (multilineFieldOperator) (multilineFieldKey)
+    (multilineFieldOperator) (key)
+    (multilineFieldOperator) (key)
   )
 )
 
@@ -49,7 +49,7 @@ Multiline Field (long operator)
 
 (document
   (field
-    (multilineFieldOperator) (multilineFieldKey)
-    (multilineFieldOperator) (multilineFieldKey)
+    (multilineFieldOperator) (key)
+    (multilineFieldOperator) (key)
   )
 )
