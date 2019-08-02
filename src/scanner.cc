@@ -70,13 +70,17 @@ struct Scanner {
   }
 
   inline void skip_horizontal_whitespace(TSLexer *lexer) {
-    while (lexer->lookahead == ' ' ||
+    while (is_horizontal_whitespace(lexer)) {
+      skip(lexer);
+    }
+  }
+
+  inline bool is_horizontal_whitespace(TSLexer *lexer) {
+    return lexer->lookahead == ' ' ||
            lexer->lookahead == '\t' ||
            lexer->lookahead == '\uFEFF' ||
            lexer->lookahead == '\u2060' ||
-           lexer->lookahead == '\u200B') {
-      skip(lexer);
-    }
+           lexer->lookahead == '\u200B';
   }
 
   bool scan(TSLexer *lexer, const bool *valid_symbols) {
@@ -143,16 +147,30 @@ struct Scanner {
       return false;
     } else if (valid_symbols[MULTILINE_FIELD_KEY] && multiline_dashes > 0) {  // TODO: '&& multiline_dashes > 0' cuts off dozens of invalid attempts here, investigate why they happen at all
       bool key_just_read = multiline_key.empty();
+      string undecided_chars;
 
       // Added because regular whitespace-as-extra detection
       // somehow didn't work here, possibly to be reinvestigated
       // at a later point (and refactored if applies).
       skip_horizontal_whitespace(lexer);
 
+      lexer->mark_end(lexer);
+
       if (lexer->lookahead != '\n' && lexer->lookahead != 0) {
         do {
-          multiline_key += lexer->lookahead;
-          advance(lexer);
+          if (is_horizontal_whitespace(lexer)) {
+            undecided_chars += lexer->lookahead;
+            advance(lexer);
+          } else {
+            if (!undecided_chars.empty()) {
+              multiline_key += undecided_chars;
+              undecided_chars.clear();
+            }
+
+            multiline_key += lexer->lookahead;
+            advance(lexer);
+            lexer->mark_end(lexer);
+          }
         } while (lexer->lookahead != '\n' && lexer->lookahead != 0);
 
         if (!key_just_read) {
