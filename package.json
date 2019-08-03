@@ -9,7 +9,7 @@
   "devDependencies": {
     "tree-sitter-cli": "^0.15.7"
   },
-  "description": "Tree-sitter parser definition for eno",
+  "description": "Tree-sitter grammar for eno",
   "homepage": "https://github.com/eno-lang/tree-sitter-eno/",
   "keywords": [
     "eno",
@@ -28,5 +28,5 @@
     "generate": "tree-sitter generate",
     "test": "tree-sitter test"
   },
-  "version": "0.0.0"
+  "version": "0.1.0"
 }
