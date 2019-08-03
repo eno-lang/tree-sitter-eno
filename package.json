@@ -11,6 +11,11 @@
   },
   "description": "Tree-sitter parser definition for eno",
   "homepage": "https://github.com/eno-lang/tree-sitter-eno/",
+  "keywords": [
+    "eno",
+    "parser",
+    "tree-sitter"
+  ],
   "license": "MIT",
   "main": "index.js",
   "name": "tree-sitter-eno",
