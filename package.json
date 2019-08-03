@@ -3,8 +3,10 @@
   "bugs": {
     "url": "https://github.com/eno-lang/tree-sitter-eno/issues/"
   },
+  "dependencies": {
+    "nan": "^2.14.0"
+  },
   "devDependencies": {
-    "nan": "^2.14.0",
     "tree-sitter-cli": "^0.15.7"
   },
   "description": "Tree-sitter parser definition for eno",
