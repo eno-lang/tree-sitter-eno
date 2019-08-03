@@ -14,6 +14,7 @@ using std::string;
 enum TokenType {
   _END_OF_LINE,
   _MULTILINE_FIELD_END,
+  _MULTILINE_FIELD_LINE,
   _SECTION_ASCEND,
   _SECTION_DESCEND,
   ESCAPED_KEY,
@@ -69,6 +70,12 @@ struct Scanner {
     }
   }
 
+  inline void consume_line(TSLexer *lexer) {
+    while (lexer->lookahead != '\n' && lexer->lookahead != 0) {
+      advance(lexer);
+    }
+  }
+
   inline void skip_horizontal_whitespace(TSLexer *lexer) {
     while (is_horizontal_whitespace(lexer)) {
       skip(lexer);
@@ -84,27 +91,33 @@ struct Scanner {
   }
 
   bool scan(TSLexer *lexer, const bool *valid_symbols) {
-    if (valid_symbols[_MULTILINE_FIELD_END] && lexer->lookahead == '-') {
-      // TODO: lexer->mark_end(lexer); and return fully consumed line as MULTLINE_FIELD_VALUE
+    if (valid_symbols[_MULTILINE_FIELD_END]) {
+      skip_horizontal_whitespace(lexer);
 
       lexer->mark_end(lexer);
 
       uint16_t new_multiline_dashes = 0;
 
-      do {
+      while (lexer->lookahead == '-') {
         advance(lexer);
         new_multiline_dashes++;
-      } while (lexer->lookahead == '-');
+      }
 
       if (new_multiline_dashes != multiline_dashes) {
-        return false;
+        consume_line(lexer);
+        lexer->mark_end(lexer);
+        lexer->result_symbol = _MULTILINE_FIELD_LINE;
+        return true;
       }
 
       skip_horizontal_whitespace(lexer);
 
       for (char& iterated_character : multiline_key) {
         if (lexer->lookahead != iterated_character) {
-          return false;
+          consume_line(lexer);
+          lexer->mark_end(lexer);
+          lexer->result_symbol = _MULTILINE_FIELD_LINE;
+          return true;
         }
 
         advance(lexer);

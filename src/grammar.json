@@ -160,6 +160,15 @@
           "name": "list"
         },
         {
+          "type": "ALIAS",
+          "content": {
+            "type": "SYMBOL",
+            "name": "multilineField"
+          },
+          "named": true,
+          "value": "field"
+        },
+        {
           "type": "SYMBOL",
           "name": "section"
         }
@@ -370,39 +379,6 @@
               }
             }
           ]
-        },
-        {
-          "type": "SEQ",
-          "members": [
-            {
-              "type": "SYMBOL",
-              "name": "multilineFieldOperator"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "multilineFieldKey"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "_endOfLine"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "_multilineFieldEnd"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "multilineFieldOperator"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "multilineFieldKey"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "_endOfLine"
-            }
-          ]
         }
       ]
     },
@@ -506,6 +482,77 @@
           }
         }
       ]
+    },
+    "multilineField": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "multilineFieldOperator"
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "SYMBOL",
+            "name": "multilineFieldKey"
+          },
+          "named": true,
+          "value": "key"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_endOfLine"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "multilineFieldValue"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_multilineFieldEnd"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "multilineFieldOperator"
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "SYMBOL",
+            "name": "multilineFieldKey"
+          },
+          "named": true,
+          "value": "key"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_endOfLine"
+        }
+      ]
+    },
+    "multilineFieldValue": {
+      "type": "REPEAT1",
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "SYMBOL",
+            "name": "_multilineFieldLine"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "_endOfLine"
+          }
+        ]
+      }
     },
     "section": {
       "type": "SEQ",
@@ -669,6 +716,10 @@
     {
       "type": "SYMBOL",
       "name": "_multilineFieldEnd"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "_multilineFieldLine"
     },
     {
       "type": "SYMBOL",

@@ -21,6 +21,7 @@ module.exports = grammar({
   externals: $ => [
     $._endOfLine,
     $._multilineFieldEnd,
+    $._multilineFieldLine,
     $._sectionAscend,
     $._sectionDescend,
     $.escapedKey,
@@ -76,6 +77,7 @@ module.exports = grammar({
       $.field,
       $.fieldset,
       $.list,
+      alias($.multilineField, $.field),
       $.section
     ),
 
@@ -128,15 +130,6 @@ module.exports = grammar({
           repeat($._commentOrEmpty),
           $.continuation
         ))
-      ),
-      seq(
-        $.multilineFieldOperator,
-        alias($.multilineFieldKey, $.key),
-        $._endOfLine,
-        $._multilineFieldEnd,
-        $.multilineFieldOperator,
-        alias($.multilineFieldKey, $.key),
-        $._endOfLine
       )
     ),
 
@@ -166,6 +159,21 @@ module.exports = grammar({
         repeat($._commentOrEmpty),
         $.item
       ))
+    ),
+
+    multilineField: $ => seq(
+      $.multilineFieldOperator,
+      alias($.multilineFieldKey, $.key),
+      $._endOfLine,
+      optional($.multilineFieldValue),
+      $._multilineFieldEnd,
+      $.multilineFieldOperator,
+      alias($.multilineFieldKey, $.key),
+      $._endOfLine
+    ),
+
+    multilineFieldValue: $ => repeat1(
+      seq($._multilineFieldLine, $._endOfLine)
     ),
 
     section: $ => seq(

@@ -27,7 +27,7 @@ Multiline Field (dash-only key)
 )
 
 ===================================
-Multiline Field (malicious key attack)
+Multiline Field (malicious key)
 ===================================
 -- field -- field
 -- field -- field
@@ -50,6 +50,72 @@ Multiline Field (long operator)
 (document
   (field
     (multilineFieldOperator) (key)
+    (multilineFieldOperator) (key)
+  )
+)
+
+===================================
+Multiline Field (with value)
+===================================
+-- field
+value
+-- field
+---
+
+(document
+  (field
+    (multilineFieldOperator) (key)
+    (multilineFieldValue)
+    (multilineFieldOperator) (key)
+  )
+)
+
+===================================
+Multiline Field (with multiline value)
+===================================
+-- field
+value
+value
+-- field
+---
+
+(document
+  (field
+    (multilineFieldOperator) (key)
+    (multilineFieldValue)
+    (multilineFieldOperator) (key)
+  )
+)
+
+===================================
+Multiline Field (with malicious value)
+===================================
+-- field
+-- filed
+-- field
+---
+
+(document
+  (field
+    (multilineFieldOperator) (key)
+    (multilineFieldValue)
+    (multilineFieldOperator) (key)
+  )
+)
+
+===================================
+Multiline Field (with multiline malicious value)
+===================================
+-- field
+-- filed
+-- filed
+-- field
+---
+
+(document
+  (field
+    (multilineFieldOperator) (key)
+    (multilineFieldValue)
     (multilineFieldOperator) (key)
   )
 )

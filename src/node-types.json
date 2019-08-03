@@ -174,27 +174,7 @@
       "required": false,
       "types": [
         {
-          "type": "comment",
-          "named": true
-        },
-        {
-          "type": "continuation",
-          "named": true
-        },
-        {
-          "type": "elementOperator",
-          "named": true
-        },
-        {
-          "type": "escapeOperator",
-          "named": true
-        },
-        {
           "type": "key",
-          "named": true
-        },
-        {
-          "type": "multilineFieldKey",
           "named": true
         },
         {
@@ -202,7 +182,7 @@
           "named": true
         },
         {
-          "type": "value",
+          "type": "multilineFieldValue",
           "named": true
         }
       ]
@@ -312,6 +292,11 @@
         }
       ]
     }
+  },
+  {
+    "type": "multilineFieldValue",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "section",
