@@ -249,15 +249,17 @@ struct Scanner {
 
       lexer->result_symbol = ESCAPED_KEY;
       return true;
-    } else if (valid_symbols[_END_OF_LINE] &&
-               (lexer->lookahead == '\n' || lexer->lookahead == 0)) {
-      lexer->result_symbol = _END_OF_LINE;
+    } else if (valid_symbols[_END_OF_LINE]) {
+      skip_horizontal_whitespace(lexer);
 
-      if (lexer->lookahead == '\n') {
-        skip(lexer);
+      if (lexer->lookahead == '\n' || lexer->lookahead == 0) {
+        if (lexer->lookahead == '\n') {
+          skip(lexer);
+        }
+
+        lexer->result_symbol = _END_OF_LINE;
+        return true;
       }
-
-      return true;
     }
 
     return false;
