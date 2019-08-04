@@ -32,5 +32,5 @@
     "generate": "tree-sitter generate",
     "test": "tree-sitter test"
   },
-  "version": "0.1.0"
+  "version": "0.1.1"
 }
