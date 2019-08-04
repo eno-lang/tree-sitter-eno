@@ -12,6 +12,19 @@ entry = value
 )
 
 ===================================
+Fieldset (one empty entry)
+===================================
+fieldset:
+entry =
+---
+
+(document
+  (fieldset (key) (elementOperator)
+    (entry (key) (entryOperator))
+  )
+)
+
+===================================
 Fieldset (one entry with continuation)
 ===================================
 fieldset:

@@ -103,7 +103,7 @@ module.exports = grammar({
     entry: $ => seq(
       $._escapedOrUnescapedKey,
       $.entryOperator,
-      alias($.token, $.value),
+      optional(alias($.token, $.value)),
       $._endOfLine,
       repeat(seq(
         repeat($._commentOrEmpty),
@@ -143,7 +143,7 @@ module.exports = grammar({
 
     item: $ => seq(
       $.itemOperator,
-      alias($.token, $.value),
+      optional(alias($.token, $.value)),
       $._endOfLine,
       repeat(seq(
         repeat($._commentOrEmpty),

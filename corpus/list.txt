@@ -12,6 +12,19 @@ list:
 )
 
 ===================================
+List (one empty item)
+===================================
+list:
+-
+---
+
+(document
+  (list (key) (elementOperator)
+    (item (itemOperator))
+  )
+)
+
+===================================
 List (one item with continuation)
 ===================================
 list:
