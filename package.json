@@ -10,6 +10,10 @@
     "tree-sitter-cli": "^0.15.7"
   },
   "description": "Tree-sitter grammar for eno",
+  "files": [
+    "binding.gyp",
+    "src/"
+  ],
   "homepage": "https://github.com/eno-lang/tree-sitter-eno/",
   "keywords": [
     "eno",
