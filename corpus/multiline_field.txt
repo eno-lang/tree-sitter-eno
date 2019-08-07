@@ -65,7 +65,7 @@ value
 (document
   (field
     (multilineFieldOperator) (key)
-    (multilineFieldValue)
+    (value)
     (multilineFieldOperator) (key)
   )
 )
@@ -82,7 +82,7 @@ value
 (document
   (field
     (multilineFieldOperator) (key)
-    (multilineFieldValue)
+    (value)
     (multilineFieldOperator) (key)
   )
 )
@@ -98,7 +98,7 @@ Multiline Field (with malicious value)
 (document
   (field
     (multilineFieldOperator) (key)
-    (multilineFieldValue)
+    (value)
     (multilineFieldOperator) (key)
   )
 )
@@ -115,7 +115,7 @@ Multiline Field (with multiline malicious value)
 (document
   (field
     (multilineFieldOperator) (key)
-    (multilineFieldValue)
+    (value)
     (multilineFieldOperator) (key)
   )
 )

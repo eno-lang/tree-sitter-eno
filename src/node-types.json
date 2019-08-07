@@ -182,7 +182,7 @@
           "named": true
         },
         {
-          "type": "multilineFieldValue",
+          "type": "value",
           "named": true
         }
       ]
@@ -294,11 +294,6 @@
     }
   },
   {
-    "type": "multilineFieldValue",
-    "named": true,
-    "fields": {}
-  },
-  {
     "type": "section",
     "named": true,
     "fields": {},
@@ -360,6 +355,11 @@
         }
       ]
     }
+  },
+  {
+    "type": "value",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "key",

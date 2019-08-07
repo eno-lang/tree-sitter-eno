@@ -165,7 +165,7 @@ module.exports = grammar({
       $.multilineFieldOperator,
       alias($.multilineFieldKey, $.key),
       $._endOfLine,
-      optional($.multilineFieldValue),
+      optional(alias($.multilineFieldValue, $.value)),
       $._multilineFieldEnd,
       $.multilineFieldOperator,
       alias($.multilineFieldKey, $.key),

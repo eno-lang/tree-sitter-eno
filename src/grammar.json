@@ -523,8 +523,13 @@
           "type": "CHOICE",
           "members": [
             {
-              "type": "SYMBOL",
-              "name": "multilineFieldValue"
+              "type": "ALIAS",
+              "content": {
+                "type": "SYMBOL",
+                "name": "multilineFieldValue"
+              },
+              "named": true,
+              "value": "value"
             },
             {
               "type": "BLANK"
