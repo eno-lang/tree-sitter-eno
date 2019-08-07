@@ -1,0 +1,55 @@
+===================================
+Full Document
+===================================
+language: en
+debug: false
+
+# configuration
+
+## defaults
+
+routing:
+`https://landing_page` = 10.20.30.40
+`https://load_balancer` = 11.22.33.44
+
+## production < defaults
+
+speed_settings:
+- Choose an option
+-
+- Very fast
+- Fast
+- Slow
+
+-- notes
+Nothing to add
+-- notes
+
+---
+
+(document
+  (field (key) (elementOperator) (value))
+  (field (key) (elementOperator) (value))
+  (section (sectionOperator) (key)
+    (section (sectionOperator) (key)
+      (fieldset (key) (elementOperator)
+        (entry (escapeOperator) (key) (escapeOperator) (entryOperator) (value))
+        (entry (escapeOperator) (key) (escapeOperator) (entryOperator) (value))
+      )
+    )
+    (section (sectionOperator) (key) (copyOperator) (template)
+      (list (key) (elementOperator)
+        (item (itemOperator) (value))
+        (item (itemOperator))
+        (item (itemOperator) (value))
+        (item (itemOperator) (value))
+        (item (itemOperator) (value))
+      )
+      (field
+        (multilineFieldOperator) (key)
+        (value)
+        (multilineFieldOperator) (key)
+      )
+    )
+  )
+)
