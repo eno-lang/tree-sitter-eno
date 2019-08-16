@@ -9,6 +9,16 @@ Comment
 )
 
 ===================================
+Comment (empty)
+===================================
+>
+---
+
+(document
+  (comment (commentOperator))
+)
+
+===================================
 Comments (consecutive lines)
 ===================================
 > commment

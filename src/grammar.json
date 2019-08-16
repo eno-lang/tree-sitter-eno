@@ -187,13 +187,21 @@
               "name": "commentOperator"
             },
             {
-              "type": "ALIAS",
-              "content": {
-                "type": "SYMBOL",
-                "name": "token"
-              },
-              "named": true,
-              "value": "comment"
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "ALIAS",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "token"
+                  },
+                  "named": true,
+                  "value": "comment"
+                },
+                {
+                  "type": "BLANK"
+                }
+              ]
             },
             {
               "type": "SYMBOL",

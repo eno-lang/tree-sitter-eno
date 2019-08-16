@@ -83,7 +83,7 @@ module.exports = grammar({
 
     comment: $ => prec.right(repeat1(seq(
       $.commentOperator,
-      alias($.token, $.comment),
+      optional(alias($.token, $.comment)),
       $._endOfLine
     ))),
 
