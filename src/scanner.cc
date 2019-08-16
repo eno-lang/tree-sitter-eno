@@ -91,6 +91,13 @@ struct Scanner {
   }
 
   bool scan(TSLexer *lexer, const bool *valid_symbols) {
+    // TODO: This is yet another hack to solve unexpected whitespace extra behavior
+    //       (i.e. whitespace extra not consuming whitespace "at any point" in the
+    //        grammar as expected from the tree-sitter documentation) - clarify.
+    if (valid_symbols[ESCAPE_OPERATOR] && is_horizontal_whitespace(lexer)) {
+      skip_horizontal_whitespace(lexer);
+    }
+
     if (valid_symbols[_MULTILINE_FIELD_END]) {
       skip_horizontal_whitespace(lexer);
 

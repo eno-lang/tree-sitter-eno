@@ -9,6 +9,16 @@ Section
 )
 
 ===================================
+Section (escaped key)
+===================================
+# `section`
+---
+
+(document
+  (section (sectionOperator) (escapeOperator) (key) (escapeOperator))
+)
+
+===================================
 Section (key starting with a section operator)
 ===================================
 # #
