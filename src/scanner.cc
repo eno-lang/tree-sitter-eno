@@ -85,9 +85,9 @@ struct Scanner {
   inline bool is_horizontal_whitespace(TSLexer *lexer) {
     return lexer->lookahead == ' ' ||
            lexer->lookahead == '\t' ||
-           lexer->lookahead == '\uFEFF' ||
-           lexer->lookahead == '\u2060' ||
-           lexer->lookahead == '\u200B';
+           lexer->lookahead == 0xFEFF ||
+           lexer->lookahead == 0x2060 ||
+           lexer->lookahead == 0x200B;
   }
 
   bool scan(TSLexer *lexer, const bool *valid_symbols) {
